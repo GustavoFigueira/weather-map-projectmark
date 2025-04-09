@@ -1,0 +1,42 @@
+# Clean
+clean:
+  - flutter clean
+
+# Pub get
+get:
+  - flutter pub get
+
+# Run Build Runner Build
+build: dart run build_runner build --delete-conflicting-outputs
+
+# Run Build Runner Watch
+watch: dart run build_runner watch --delete-conflicting-outputs
+
+# Run Tests Coverage
+coverage:
+  - dart run full_coverage -i html_url_service.dart
+  - flutter test --coverage
+
+# Generate Flavors
+flavors:
+  - dart run flutter_flavorizr
+
+# Generate Native Splash
+splash:
+  - dart run flutter_native_splash:create --flavors dev,uat,prod
+
+# Generate Launcher Icon
+launcher_icon:
+  - dart run flutter_launcher_icons
+
+# Generate Translations
+intl:
+  - flutter gen-l10n
+
+# Generate Routes
+routes:
+  - dart run routefly
+
+# Sort dependencies from pubspec.yaml
+sort:
+  - dart run pubspec_dependency_sorter
