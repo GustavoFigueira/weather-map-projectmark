@@ -13,10 +13,44 @@ import 'package:weather_map/src/views/widgets/temperature_along_day_carousel_sli
 
 const kHomeDefaultSpacing = 35.0;
 
-class HomeView extends StatelessWidget {
-  HomeView({super.key});
+class HomeView extends StatefulWidget {
+  const HomeView({super.key});
 
+  @override
+  HomeViewState createState() => HomeViewState();
+}
+
+class HomeViewState extends State<HomeView> with TickerProviderStateMixin {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+  late final List<AnimationController> _animationControllers;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationControllers = List.generate(
+      7,
+      (index) => AnimationController(
+        vsync: this,
+        duration: Duration(milliseconds: 300),
+      ),
+    );
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      for (int i = 0; i < _animationControllers.length; i++) {
+        Future.delayed(Duration(milliseconds: 200 * i), () {
+          _animationControllers[i].forward();
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    for (final controller in _animationControllers) {
+      controller.dispose();
+    }
+    super.dispose();
+  }
 
   // Helper function to determine the color based on temperature.
   Color getTemperatureColor(double temperature) {
@@ -101,7 +135,7 @@ class HomeView extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: [
             DrawerHeader(
-              decoration: const BoxDecoration(color: Color(0xFF4A90E2)),
+              decoration: const BoxDecoration(color: Colors.transparent),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -112,12 +146,67 @@ class HomeView extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    'teste',
+                    'Weather Map',
                     style: const TextStyle(
-                      color: Colors.white,
+                      color: Colors.black,
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
+                  ),
+                ],
+              ),
+            ),
+            ListTile(
+              title: Text(
+                'Last Update: ${DateTime.now().toLocal().toString().split('.')[0]}',
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              leading: const Icon(Icons.update, color: Colors.blue),
+            ),
+            const Divider(),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'How to Update Weather:',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Icon(Icons.refresh, color: Colors.green, size: 20),
+                      SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          'Pull down to refresh the page.',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Icon(Icons.timer, color: Colors.orange, size: 20),
+                      SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          'Weather updates automatically every 10 minutes.',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -134,23 +223,70 @@ class HomeView extends StatelessWidget {
           },
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                DefaultHomeHorizontalSpacing(),
-                CitiesHorizontalCarouselSlider(),
-                DefaultHomeHorizontalSpacing(),
-                DefaultHomeSection(
-                  title: 'Today',
-                  contentPadding: false,
-                  child: TemperatureAlongDayCarouselSlider(),
-                ),
-                DefaultHomeHorizontalSpacing(),
-                DefaultHomeSection(
-                  title: 'Next 7 Days',
-                  child: Column()
-                ),
-              ],
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: kHomeDefaultSpacing),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CitiesHorizontalCarouselSlider(),
+                  DefaultHomeHorizontalSpacing(),
+                  DefaultHomeSection(
+                    title: 'Today',
+                    contentPadding: false,
+                    child: TemperatureAlongDayCarouselSlider(),
+                  ),
+                  DefaultHomeHorizontalSpacing(),
+                  DefaultHomeSection(
+                    title: 'Next 7 Days',
+                    child: Column(
+                      children: List.generate(7, (index) {
+                        final dayOfWeek =
+                            [
+                              'Mon',
+                              'Tue',
+                              'Wed',
+                              'Thu',
+                              'Fri',
+                              'Sat',
+                              'Sun',
+                            ][index];
+                        final weatherIcon = Icons.wb_sunny;
+                        final minTemp = 15 + index;
+                        final maxTemp = 25 + index;
+
+                        return FadeTransition(
+                          opacity: _animationControllers[index].drive(
+                            CurveTween(curve: Curves.easeIn),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  dayOfWeek,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Icon(
+                                  weatherIcon,
+                                  color: Colors.orange,
+                                ), // Replace with dynamic color
+                                Text(
+                                  '$minTemp°C / $maxTemp°C',
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      }),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
