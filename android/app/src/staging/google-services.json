@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "926425028744",
+    "project_id": "weather-map-projectmark",
+    "storage_bucket": "weather-map-projectmark.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:926425028744:android:87382e8316f71b86daa73d",
+        "android_client_info": {
+          "package_name": "com.projectmark.weather_map"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlu9gX3GB8cIlAN4Nj13Itc3WOVi7Qx9w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

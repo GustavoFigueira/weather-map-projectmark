@@ -10,9 +10,10 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:weather_map/app/config/flavors.dart';
 import 'package:weather_map/src/bindings/initial_binding.dart';
 import 'package:weather_map/src/core/constants/locale.constants.dart';
+import 'package:weather_map/src/core/constants/theme.dart';
 import 'package:weather_map/src/core/services/navigation/navigation_service.dart';
 import 'package:weather_map/src/core/services/services.dart';
-import 'package:weather_map/src/views/home_view.dart';
+import 'package:weather_map/src/features/home/home_view.dart';
 
 const defaultTranslationsPath = 'assets/translations';
 
@@ -24,15 +25,9 @@ void _runApp({required MainAppEnvironment environment}) => runApp(
     child: GetMaterialApp(
       title: 'Mobile Challenge (ProjectMark)',
       debugShowCheckedModeBanner: false,
-      home: const HomeView(),
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        appBarTheme: const AppBarTheme(
-          color: Colors.white,
-          iconTheme: IconThemeData(color: Colors.black),
-          titleTextStyle: TextStyle(color: Colors.black, fontSize: 20),
-        ),
-      ),
+      home: HomeView(),
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.lightTheme,
     ),
   ),
 );

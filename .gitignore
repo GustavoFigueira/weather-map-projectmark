@@ -152,3 +152,6 @@ app.*.map.json
 !/dev/ci/**/Gemfile.lock
 !.vscode/launch.json
 !.vscode/settings.json
+
+# Ignore zip files
+*.zip
