@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:weather_map/src/core/constants/locale.constants.dart';
 
 class MenuDrawer extends StatefulWidget {
   const MenuDrawer({super.key});
@@ -62,6 +64,34 @@ class _MenuDrawerState extends State<MenuDrawer> {
             });
           },
           secondary: const Icon(Icons.thermostat, color: Colors.red),
+        ),
+        const Divider(),
+        ListTile(
+          title: const Text(
+            'Language',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+          ),
+          trailing: DropdownButton<Locale>(
+            value: EasyLocalization.of(context)?.locale ?? kDefaultLocale,
+            items:
+                kSupportedLocales
+                    .map(
+                      (locale) => DropdownMenuItem(
+                        value: locale,
+                        child: Text(
+                          locale.languageCode == 'en'
+                              ? 'English'
+                              : 'Portuguese',
+                        ),
+                      ),
+                    )
+                    .toList(),
+            onChanged: (Locale? value) {
+              if (value != null) {
+                context.setLocale(value);
+              }
+            },
+          ),
         ),
         const Divider(),
         Padding(

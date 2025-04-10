@@ -7,12 +7,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 import 'package:weather_map/app/config/flavors.dart';
 import 'package:weather_map/src/core/bindings/initial_binding.dart';
 import 'package:weather_map/src/core/constants/locale.constants.dart';
 import 'package:weather_map/src/core/constants/theme.dart';
 import 'package:weather_map/src/core/routing/routes.dart';
+import 'package:weather_map/src/core/services/hive/hive.init.dart';
 import 'package:weather_map/src/core/services/navigation/navigation_service.dart';
 import 'package:weather_map/src/core/services/services.dart';
 
@@ -21,8 +23,8 @@ const defaultTranslationsPath = 'assets/translations';
 void _runApp({required MainAppEnvironment environment}) => runApp(
   EasyLocalization(
     path: defaultTranslationsPath,
-    supportedLocales: supportedLocales,
-    fallbackLocale: defaultLocale,
+    supportedLocales: kSupportedLocales,
+    fallbackLocale: kDefaultLocale,
     child: GetMaterialApp.router(
       title: 'Mobile Challenge (ProjectMark)',
       debugShowCheckedModeBanner: false,
@@ -51,6 +53,12 @@ Future<void> mainApp({required MainAppEnvironment environment}) async {
           statusBarIconBrightness: Brightness.dark,
         ),
       );
+
+      // Initialize the default locale.
+      initializeDateFormatting();
+
+      // Initialize Hive serivce.
+      initHive();
 
       // Init services of the app .
       initServices(environment);

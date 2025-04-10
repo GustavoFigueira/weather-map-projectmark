@@ -21,6 +21,5 @@ class WeatherConditionIcon extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) =>
-      SvgPicture.asset(_getIconPath(), width: 34, height: 34);
+  Widget build(BuildContext context) => SvgPicture.asset(_getIconPath());
 }

@@ -24,9 +24,11 @@ Future<void> initFirebase(MainAppEnvironment environment) async {
 
     // Initialize Firebase Remote Config
     await FirebaseRemoteConfig.instance.fetchAndActivate();
-    FirebaseRemoteConfig.instance.onConfigUpdated.listen(
-      (event) async => FirebaseRemoteConfig.instance.activate(),
-    );
+    if (!kIsWeb) {
+      FirebaseRemoteConfig.instance.onConfigUpdated.listen(
+        (event) async => FirebaseRemoteConfig.instance.activate(),
+      );
+    }
 
     // Request permission for push notifications
     FirebaseMessaging.instance.requestPermission();

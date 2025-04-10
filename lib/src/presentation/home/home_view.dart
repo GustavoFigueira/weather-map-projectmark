@@ -65,8 +65,8 @@ class HomeView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CitiesHorizontalCarouselSlider(
-                          loading: controller.loadingCities.value,
-                          cities: controller.cities.toList(),
+                          loading: controller.model.loadingCities.value,
+                          cities: controller.model.cities.toList(),
                           onCitySelected: controller.updateSelectedCity,
                         ),
                         const DefaultHomeHorizontalSpacing(),
@@ -74,14 +74,16 @@ class HomeView extends StatelessWidget {
                           title: 'Today',
                           contentPadding: false,
                           child: TemperatureAlongDayCarouselSlider(
-                            loading: controller.loadingWeather.value,
+                            loading: controller.model.loadingWeather.value,
+                            nextHoursWeather: controller.model.nextHoursWeather,
                           ),
                         ),
                         const DefaultHomeHorizontalSpacing(),
                         DefaultHomeSection(
                           title: 'Next 7 Days',
                           child: NextDaysWeatherTable(
-                            loading: controller.loadingWeather.value,
+                            loading: controller.model.loadingWeather.value,
+                            nextDaysWeather: controller.model.nextDaysWeather,
                           ),
                         ),
                       ],
@@ -91,8 +93,9 @@ class HomeView extends StatelessWidget {
               ),
             ),
           ),
-          if (GlobalStateManager().loading.value)
+          if (GlobalStateManager().loading.value) ...[
             const Center(child: CircularProgressIndicator()),
+          ],
         ],
       ),
     );

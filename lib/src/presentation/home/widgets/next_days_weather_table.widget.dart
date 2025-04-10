@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:weather_map/src/domain/enums/weather_condition.enum.dart';
+import 'package:intl/intl.dart';
+import 'package:weather_map/src/domain/models/next_days_weather.model.dart';
 import 'package:weather_map/src/presentation/global/widgets/weather_condition_icon.widget.dart';
 
 class NextDaysWeatherTable extends StatefulWidget {
-  const NextDaysWeatherTable({super.key, this.loading = false});
+  const NextDaysWeatherTable({
+    super.key,
+    this.loading = false,
+    required this.nextDaysWeather,
+  });
 
   final bool loading;
+  final List<NextDaysWeatherModel> nextDaysWeather;
 
   @override
   NextDaysWeatherTableState createState() => NextDaysWeatherTableState();
@@ -47,86 +53,86 @@ class NextDaysWeatherTableState extends State<NextDaysWeatherTable> {
         1: FlexColumnWidth(),
         2: FlexColumnWidth(3),
       },
-      children: List.generate(7, (index) {
-        final dayOfWeek =
-            ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][index];
-        const weatherCondition = WeatherCondition.sunny;
-        final minTemp = 15 + index;
-        final maxTemp = 25 + index;
+      children:
+          widget.nextDaysWeather.asMap().entries.map((entry) {
+            final index = entry.key;
+            final weather = entry.value;
 
-        return TableRow(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 17.0),
-              child: FadeTransition(
-                opacity: AlwaysStoppedAnimation(_opacityValues[index]),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Text(
-                    dayOfWeek,
-                    style: TextStyle(
-                      fontSize: 17,
-                      color: const Color(0xFF718096),
-                      fontFamily:
-                          GoogleFonts.archivo(
-                            fontWeight: FontWeight.w500,
-                          ).fontFamily,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 17.0),
-              child: FadeTransition(
-                opacity: AlwaysStoppedAnimation(_opacityValues[index]),
-                child: Center(
-                  child: WeatherConditionIcon(condition: weatherCondition),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 17.0),
-              child: FadeTransition(
-                opacity: AlwaysStoppedAnimation(_opacityValues[index]),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: RichText(
-                    textAlign: TextAlign.right,
-                    text: TextSpan(
-                      style: const TextStyle(
-                        fontSize: 17,
-                        color: Color(0xFF718096),
+            return TableRow(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 17.0),
+                  child: FadeTransition(
+                    opacity: AlwaysStoppedAnimation(_opacityValues[index]),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Text(
+                        DateFormat.EEEE().format(
+                          DateTime.now().add(Duration(days: index)),
+                        ),
+                        style: TextStyle(
+                          fontSize: 17,
+                          color: const Color(0xFF718096),
+                          fontFamily:
+                              GoogleFonts.archivo(
+                                fontWeight: FontWeight.w500,
+                              ).fontFamily,
+                        ),
                       ),
-                      children: [
-                        TextSpan(
-                          text: '$minTemp°C',
-                          style: TextStyle(
-                            fontFamily:
-                                GoogleFonts.archivo(
-                                  fontWeight: FontWeight.w500,
-                                ).fontFamily,
-                          ),
-                        ),
-                        const TextSpan(text: ' / '),
-                        TextSpan(
-                          text: '$maxTemp°',
-                          style: TextStyle(
-                            fontFamily:
-                                GoogleFonts.archivo(
-                                  fontWeight: FontWeight.w700,
-                                ).fontFamily,
-                          ),
-                        ),
-                      ],
                     ),
                   ),
                 ),
-              ),
-            ),
-          ],
-        );
-      }),
+                Padding(
+                  padding: const EdgeInsets.only(top: 17.0),
+                  child: FadeTransition(
+                    opacity: AlwaysStoppedAnimation(_opacityValues[index]),
+                    child: Center(
+                      child: WeatherConditionIcon(condition: weather.condition),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 17.0),
+                  child: FadeTransition(
+                    opacity: AlwaysStoppedAnimation(_opacityValues[index]),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: RichText(
+                        textAlign: TextAlign.right,
+                        text: TextSpan(
+                          style: const TextStyle(
+                            fontSize: 17,
+                            color: Color(0xFF718096),
+                          ),
+                          children: [
+                            TextSpan(
+                              text: '${weather.minTemperature}°C',
+                              style: TextStyle(
+                                fontFamily:
+                                    GoogleFonts.archivo(
+                                      fontWeight: FontWeight.w500,
+                                    ).fontFamily,
+                              ),
+                            ),
+                            const TextSpan(text: ' / '),
+                            TextSpan(
+                              text: '${weather.maxTemperature}°',
+                              style: TextStyle(
+                                fontFamily:
+                                    GoogleFonts.archivo(
+                                      fontWeight: FontWeight.w700,
+                                    ).fontFamily,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            );
+          }).toList(),
     );
   }
 }
