@@ -27,6 +27,16 @@ The idea is not to use boilerplate code and overengineering, but rather to use a
 
 ---
 
+## 🌐 Live Preview
+
+Check out the live preview of the Weather Map application:
+
+![Live Preview](docs/live-preview.gif)
+
+[🌐 Visit the Live Website](https://weather-map-projectmark.web.app/)
+
+---
+
 ## 🚀 Installation
 
 To get started with Weather Map, ensure you have the latest version of Flutter installed. At the time of writing, the latest version is **3.29.2**.
