@@ -1,5 +1,3 @@
-// File: lib/app/controllers/weather_controller.dart
-
 import 'dart:async';
 import 'package:get/get.dart';
 import '../models/city.dart';
@@ -7,7 +5,6 @@ import '../models/weather.dart';
 import '../services/weather_service.dart';
 
 class WeatherController extends GetxController {
-  // List of cities based on provided instructions.
   final cities = <City>[
     City(
       id: 1,
