@@ -1,0 +1,29 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run LOCALHOST",
+      "program": "${workspaceRoot}\\lib\\app\\localhost.dart",
+      "request": "launch",
+      "type": "dart"
+    },
+    {
+      "name": "Run DEV",
+      "program": "${workspaceRoot}\\lib\\app\\dev.dart",
+      "request": "launch",
+      "type": "dart"
+    },
+    {
+      "name": "Run STAGING",
+      "program": "${workspaceRoot}\\lib\\app\\staging.dart",
+      "request": "launch",
+      "type": "dart"
+    },
+    {
+      "name": "Run PROD",
+      "program": "${workspaceRoot}\\lib\\app\\prod.dart",
+      "request": "launch",
+      "type": "dart"
+    }
+  ]
+}

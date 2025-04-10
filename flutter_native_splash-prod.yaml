@@ -1,14 +1,14 @@
 flutter_native_splash:
-  color: "#052A75"
-  color_dark: "#052A75"
-  image: assets/images/extra/prw-thumbnail.png
-  branding: assets/images/extra/bravium-brand.png
+  color: "#1B3E67"
+  color_dark: "#1B3E67"
+  image: assets/images/extra/projectmark-thumbnail.png
+  branding: assets/images/extra/projectmark-brand.png
   
   android_12:
-    color: "#052A75"
-    icon_background_color: "#052A75"
-    color_dark: "#052A75"
-    icon_background_color_dark: "#052A75"
-    branding: assets/images/extra/bravium-brand.png
+    color: "#1B3E67"
+    icon_background_color: "#1B3E67"
+    color_dark: "#1B3E67"
+    icon_background_color_dark: "#1B3E67"
+    branding: assets/images/extra/projectmark-brand.png
 
   web: true
