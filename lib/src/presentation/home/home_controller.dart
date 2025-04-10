@@ -6,6 +6,8 @@ import 'package:logger/logger.dart';
 import 'package:weather_map/src/domain/models/city.model.dart';
 import 'package:weather_map/src/domain/models/weather.model.dart';
 import 'package:weather_map/src/domain/usecases/weather.usecase.dart';
+import 'package:weather_map/src/data/constants/default_cities.dart';
+import 'package:weather_map/src/presentation/global/state/global_state_manager.dart';
 
 class HomeController extends GetxController {
   final FetchWeatherUseCase fetchWeatherUseCase;
@@ -15,9 +17,12 @@ class HomeController extends GetxController {
 
   final cities = <CityModel>[].obs;
   final weatherData = <int, WeatherModel?>{}.obs;
-  final loading = true.obs;
+  final loadingCities = false.obs;
+  final loadingWeather = false.obs;
 
   Timer? _refreshTimer;
+
+  List<CityModel> get currentCities => cities;
 
   @override
   void onInit() {
@@ -33,27 +38,18 @@ class HomeController extends GetxController {
   }
 
   Future<void> _initializeData() async {
-    loading.value = true;
+    GlobalStateManager().loading.value = true;
     try {
-      // Open Hive box for cities
-      final cityBox = await Hive.openBox<CityModel>('cities');
-
-      // Load cached cities or use default cities
-      if (cityBox.isNotEmpty) {
-        cities.assignAll(cityBox.values.toList());
-      } else {
-        cities.assignAll(_defaultCities());
-        for (var city in cities) {
-          cityBox.put(city.id, city);
+      Future.wait([fetchCities(), fetchWeatherForCities()]).then((_) {
+        // Set the first city as the current city
+        if (cities.isNotEmpty) {
+          GlobalStateManager().updateCurrentCity(cities[0]);
         }
-      }
-
-      // Fetch weather data
-      await fetchWeatherForCities();
+      });
     } catch (e) {
       Logger().e('Error initializing data: $e');
     } finally {
-      loading.value = false;
+      GlobalStateManager().loading.value = false;
     }
   }
 
@@ -63,47 +59,42 @@ class HomeController extends GetxController {
     });
   }
 
-  Future<void> fetchWeatherForCities() async {
-    loading.value = true;
+  Future<void> fetchCities() async {
+    try {
+      // Open Hive box for cities
+      final cityBox = await Hive.openBox<CityModel>('cities');
 
-    final fetchedWeatherData = await fetchWeatherUseCase.call(cities);
-    weatherData.assignAll(fetchedWeatherData);
-
-    loading.value = false;
+      // Load cached cities or use default cities
+      if (cityBox.isNotEmpty) {
+        cities.assignAll(cityBox.values.toList());
+      } else {
+        cities.assignAll(kDefaultAppCities);
+        for (var city in cities) {
+          cityBox.put(city.id, city);
+        }
+      }
+    } catch (e) {
+      Logger().e('Error fetching cities: $e');
+    } finally {
+      loadingCities.value = false;
+    }
   }
 
-  List<CityModel> _defaultCities() {
-    return [
-      CityModel(
-        id: 1,
-        label: 'Joinville - SC - Brazil',
-        name: 'Joinville',
-        state: 'SC',
-        country: 'Brazil',
-        countryShort: 'BR',
-        lat: '-26.30444000',
-        long: '-48.84556000',
-      ),
-      CityModel(
-        id: 2,
-        label: 'San Francisco - CA - USA',
-        name: 'San Francisco',
-        state: 'CA',
-        country: 'USA',
-        countryShort: 'USA',
-        lat: '37.77493000',
-        long: '-122.41942000',
-      ),
-      CityModel(
-        id: 3,
-        label: 'Urubici - SC - Brazil',
-        name: 'Urubici',
-        state: 'SC',
-        country: 'Brazil',
-        countryShort: 'BR',
-        lat: '-28.0157',
-        long: '-49.5925',
-      ),
-    ];
+  Future<void> fetchWeatherForCities() async {
+    try {
+      loadingWeather.value = true;
+      final weatherDataMap = await fetchWeatherUseCase(cities);
+      weatherData.assignAll(weatherDataMap);
+    } catch (e) {
+      Logger().e('Error fetching weather data: $e');
+    } finally {
+      loadingWeather.value = false;
+    }
+  }
+
+  void updateSelectedCity(int index) {
+    if (index >= 0 && index < cities.length) {
+      GlobalStateManager().updateCurrentCity(cities[index]);
+    }
   }
 }

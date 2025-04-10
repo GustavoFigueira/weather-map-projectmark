@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:weather_map/src/presentation/global/state/global_state_manager.dart';
 import 'package:weather_map/src/presentation/global/widgets/menu_drawer.widget.dart';
 import 'package:weather_map/src/presentation/home/home_controller.dart';
 import 'package:weather_map/src/core/constants/theme.dart';
@@ -15,8 +16,6 @@ const kHomeDefaultSpacing = 35.0;
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -33,13 +32,18 @@ class HomeView extends StatelessWidget {
               title: Text(
                 'Weather',
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      color: const Color(0xFF2D3748),
-                      fontSize: 28,
-                      fontFamily: GoogleFonts.archivo(fontWeight: FontWeight.w800).fontFamily,
-                    ),
+                  color: const Color(0xFF2D3748),
+                  fontSize: 28,
+                  fontFamily:
+                      GoogleFonts.archivo(
+                        fontWeight: FontWeight.w800,
+                      ).fontFamily,
+                ),
               ),
               leading: IconButton(
-                icon: SvgPicture.asset('assets/images/logos/projectmark-icon.svg'),
+                icon: SvgPicture.asset(
+                  'assets/images/logos/projectmark-icon.svg',
+                ),
                 onPressed: () {
                   controller.scaffoldKey.currentState?.openDrawer();
                 },
@@ -54,11 +58,15 @@ class HomeView extends StatelessWidget {
                 child: SingleChildScrollView(
                   physics: const AlwaysScrollableScrollPhysics(),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: kHomeDefaultSpacing),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: kHomeDefaultSpacing,
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const CitiesHorizontalCarouselSlider(),
+                        CitiesHorizontalCarouselSlider(
+                          cities: controller.cities,
+                        ),
                         const DefaultHomeHorizontalSpacing(),
                         const DefaultHomeSection(
                           title: 'Today',
@@ -77,10 +85,8 @@ class HomeView extends StatelessWidget {
               ),
             ),
           ),
-          if (controller.loading.value)
-            const Center(
-              child: CircularProgressIndicator(),
-            ),
+          if (GlobalStateManager().loading.value)
+            const Center(child: CircularProgressIndicator()),
         ],
       );
     });
