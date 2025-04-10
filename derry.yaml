@@ -23,7 +23,7 @@ flavors:
 
 # Generate Native Splash
 splash:
-  - dart run flutter_native_splash:create --flavors dev,uat,prod
+  - dart run flutter_native_splash:create --flavors dev,staging,prod
 
 # Generate Launcher Icon
 launcher_icon:
@@ -32,10 +32,6 @@ launcher_icon:
 # Generate Translations
 intl:
   - flutter gen-l10n
-
-# Generate Routes
-routes:
-  - dart run routefly
 
 # Sort dependencies from pubspec.yaml
 sort:
