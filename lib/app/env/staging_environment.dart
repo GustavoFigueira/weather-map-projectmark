@@ -19,12 +19,12 @@ class StagingAppEnvironment implements MainAppEnvironment {
       DefaultFirebaseOptionsStaging.currentPlatform;
 
   @override
-  Uri get baseUrl => Uri.parse('');
+  Uri get baseUrl =>
+      Uri.parse('https://api.openweathermap.org/data/2.5');
 
   @override
   String get openWeatherMapApiKey => '40d58b699617eae28c8141f423de413a';
 
   @override
-  String get assetsUrl =>
-      '';
+  String get assetsUrl => '';
 }

@@ -10,9 +10,8 @@ import 'package:weather_map/app/config/flavors.dart';
 Future<void> initFirebase(MainAppEnvironment environment) async {
   try {
     await Firebase.initializeApp(
-      name: environment.name,
-      options: environment.firebaseOptions,
-    );
+      demoProjectId: '1:926425028744:web:9d4e9541b2c1ccd3daa73d',
+      options: environment.firebaseOptions);
 
     if (!kDebugMode) {
       // Pass all uncaught "fatal" errors from the framework to Crashlytics
@@ -28,7 +27,7 @@ Future<void> initFirebase(MainAppEnvironment environment) async {
     // Initialize Firebase Remote Config
     await FirebaseRemoteConfig.instance.fetchAndActivate();
     FirebaseRemoteConfig.instance.onConfigUpdated.listen(
-          (event) async => FirebaseRemoteConfig.instance.activate(),
+      (event) async => FirebaseRemoteConfig.instance.activate(),
     );
 
     // Request permission for push notifications
