@@ -1,9 +1,9 @@
 import 'dart:ui';
 
-const supportedLocales = [
+const kSupportedLocales = [
   Locale('pt'),
   Locale('en'),
   Locale('es'),
 ];
 
-const defaultLocale = Locale('en');
+const kDefaultLocale = Locale('en');

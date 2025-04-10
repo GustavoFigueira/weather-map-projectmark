@@ -5,6 +5,6 @@ import 'package:weather_map/src/domain/models/weather.model.dart';
 /// Initialize Hive local database with web compatibility.
 Future<void> initHive() async {
   await Hive.initFlutter();
-  Hive.registerAdapter(CityModelAdapter());
-  Hive.registerAdapter(WeatherModelAdapter());
+  Hive..registerAdapter(CityModelAdapter())
+  ..registerAdapter(WeatherModelAdapter());
 }

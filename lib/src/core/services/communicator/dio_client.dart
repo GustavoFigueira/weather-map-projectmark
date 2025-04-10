@@ -3,10 +3,7 @@ import 'package:logger/logger.dart';
 import 'package:weather_map/app/config/flavors.dart';
 
 class DioClient {
-  final Dio _dio;
-  final MainAppEnvironment _environment;
-
-  DioClient({Dio? dio, required MainAppEnvironment environment})
+  DioClient({required MainAppEnvironment environment, Dio? dio})
     : _dio =
           dio ??
           Dio(
@@ -16,6 +13,8 @@ class DioClient {
             ),
           ),
       _environment = environment;
+  final Dio _dio;
+  final MainAppEnvironment _environment;
 
   Future<Response> get(
     String endpoint, {

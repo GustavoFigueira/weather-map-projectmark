@@ -1,3 +1,5 @@
 {
-    "app_name": "Weather"
+  "app_name": "Weather",
+  "today": "Hoje",
+  "next_7_days": "Próximos 7 dias"
 }

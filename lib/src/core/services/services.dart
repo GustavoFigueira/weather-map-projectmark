@@ -18,8 +18,6 @@ Future<void> initServices(MainAppEnvironment flavor) async {
 
   // Initialize services of the app in parallel.
   await Future.wait([
-    // Initialize Hive serivce.
-    //initHive(),
     // Preloads fonts to avoid visual swapping.
     GoogleFonts.pendingFonts([
       GoogleFonts.archivo,

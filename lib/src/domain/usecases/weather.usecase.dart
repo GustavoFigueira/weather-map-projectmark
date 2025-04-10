@@ -10,11 +10,11 @@ class FetchWeatherUseCase {
 
   Future<Map<int, WeatherModel?>> call(List<CityModel> cities) async {
     final weatherBox = await Hive.openBox<WeatherModel>('weather');
-    final Map<int, WeatherModel?> weatherData = {};
+    final weatherData = <int, WeatherModel?>{};
 
-    for (CityModel city in cities) {
+    for (final city in cities) {
       // Check if weather data is cached
-      WeatherModel? cachedWeather = weatherBox.get(city.id);
+      final cachedWeather = weatherBox.get(city.id);
 
       if (cachedWeather != null) {
         weatherData[city.id] = cachedWeather;

@@ -3,9 +3,9 @@ import 'package:weather_map/src/core/services/communicator/dio_client.dart';
 import 'package:weather_map/src/domain/models/weather.model.dart';
 
 class WeatherRepository {
-  final DioClient _dioClient;
-
   WeatherRepository(this._dioClient);
+  
+  final DioClient _dioClient;
 
   Future<WeatherModel?> fetchWeatherFromServer({
     required String lat,

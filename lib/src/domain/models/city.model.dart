@@ -4,6 +4,17 @@ part 'city.model.g.dart';
 
 @HiveType(typeId: 0)
 class CityModel {
+
+  CityModel({
+    required this.id,
+    required this.label,
+    required this.name,
+    required this.state,
+    required this.country,
+    required this.countryShort,
+    required this.lat,
+    required this.long,
+  });
   @HiveField(0)
   final int id;
 
@@ -27,15 +38,4 @@ class CityModel {
 
   @HiveField(7)
   final String long;
-
-  CityModel({
-    required this.id,
-    required this.label,
-    required this.name,
-    required this.state,
-    required this.country,
-    required this.countryShort,
-    required this.lat,
-    required this.long,
-  });
 }
