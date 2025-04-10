@@ -4,25 +4,25 @@ import 'package:weather_map/src/domain/enums/temperature_units.enum.dart';
 import 'package:weather_map/src/domain/models/city.model.dart';
 
 class GlobalStateManager {
+  factory GlobalStateManager() => _instance;
   GlobalStateManager._privateConstructor();
 
   static final GlobalStateManager _instance =
       GlobalStateManager._privateConstructor();
 
-  factory GlobalStateManager() {
-    return _instance;
-  }
-
-  final currentCity = Rxn<CityModel>();
+  final _currentCity = Rxn<CityModel>();
+  final _environment = Rxn<MainAppEnvironment>();
   final loading = true.obs;
   final temperatureUnit = TemperatureUnits.celsius.obs;
-  final environment = Rxn<MainAppEnvironment>();
+
+  CityModel? get currentCity => _currentCity.value;
+  MainAppEnvironment? get environment => _environment.value;
 
   void updateCurrentCity(CityModel city) {
-    currentCity.value = city;
+    _currentCity.value = city;
   }
 
   void updateEnvironment(MainAppEnvironment env) {
-    environment.value = env;
+    _environment.value = env;
   }
 }

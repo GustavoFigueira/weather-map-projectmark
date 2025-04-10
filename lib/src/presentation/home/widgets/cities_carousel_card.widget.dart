@@ -22,78 +22,73 @@ class CitiesCarouselCard extends StatelessWidget {
   final WeatherCondition condition;
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(right: 10),
-      clipBehavior: Clip.hardEdge,
-      decoration: BoxDecoration(
-        gradient: _getLinearBackground(condition),
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(14),
-      ),
-      child: Stack(
-        clipBehavior: Clip.hardEdge,
-        children: [
-          Positioned(
-            top: -20,
-            right: -20,
-            child: _buildWeatherIcon(context, condition),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(21),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  location,
-                  style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    fontFamily:
-                        GoogleFonts.archivo(
-                          fontWeight: FontWeight.w800,
-                        ).fontFamily,
-                  ),
+  Widget build(BuildContext context) => Container(
+    margin: const EdgeInsets.only(right: 10),
+    clipBehavior: Clip.hardEdge,
+    decoration: BoxDecoration(
+      gradient: _getLinearBackground(condition),
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(14),
+    ),
+    child: Stack(
+      children: [
+        Positioned(
+          top: -20,
+          right: -20,
+          child: _buildWeatherIcon(context, condition),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(21),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                location,
+                style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  fontFamily:
+                      GoogleFonts.archivo(
+                        fontWeight: FontWeight.w800,
+                      ).fontFamily,
                 ),
-                const SizedBox(height: 8),
-                Text(
-                  '$temperature°C',
-                  style: TextStyle(
-                    fontSize: 42,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    fontFamily:
-                        GoogleFonts.archivo(
-                          fontWeight: FontWeight.w800,
-                        ).fontFamily,
-                  ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                '$temperature°C',
+                style: TextStyle(
+                  fontSize: 42,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  fontFamily:
+                      GoogleFonts.archivo(
+                        fontWeight: FontWeight.w800,
+                      ).fontFamily,
                 ),
-                if (humidity != null) ...[
-                  _getBottomCardText('Humidity: $humidity%'),
-                ],
-                if (pressure != null) ...[
-                  _getBottomCardText('Pressure: $pressure hPa'),
-                ],
+              ),
+              if (humidity != null) ...[
+                _getBottomCardText('Humidity: $humidity%'),
               ],
-            ),
+              if (pressure != null) ...[
+                _getBottomCardText('Pressure: $pressure hPa'),
+              ],
+            ],
           ),
-        ],
-      ),
-    );
-  }
+        ),
+      ],
+    ),
+  );
 
-  Widget _getBottomCardText(String text) {
-    return Text(
-      text,
-      style: TextStyle(
-        fontSize: 14,
-        fontWeight: FontWeight.normal,
-        color: Colors.white,
-      ),
-    );
-  }
+  Widget _getBottomCardText(String text) => Text(
+    text,
+    style: TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.normal,
+      color: Colors.white,
+    ),
+  );
 
   // Helper function to get the linear gradient background based on the weather condition
   LinearGradient _getLinearBackground(WeatherCondition condition) {
@@ -154,14 +149,11 @@ class CitiesCarouselCard extends StatelessWidget {
         );
       case WeatherCondition.cloudy:
         return SvgPicture.asset(
-            'assets/images/illustrations/cloud.svg',
-            width: size,
-            height: size,
-            colorFilter: ColorFilter.mode(
-              Color(0xFFA0AEC0),
-              BlendMode.srcATop,
-            ),
-          );
+          'assets/images/illustrations/cloud.svg',
+          width: size,
+          height: size,
+          colorFilter: ColorFilter.mode(Color(0xFFA0AEC0), BlendMode.srcATop),
+        );
       default:
         return const SizedBox.shrink();
     }

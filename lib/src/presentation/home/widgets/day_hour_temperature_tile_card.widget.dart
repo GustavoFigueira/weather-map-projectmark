@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:weather_map/src/domain/enums/weather_condition.enum.dart';
 import 'package:weather_map/src/presentation/global/widgets/weather_condition_icon.widget.dart';
 import 'package:weather_map/src/presentation/home/home_view.dart';
-import 'package:weather_map/src/domain/enums/weather_condition.enum.dart';
 
 class DayHourTemperatureTileCard extends StatelessWidget {
   const DayHourTemperatureTileCard({
@@ -22,8 +22,7 @@ class DayHourTemperatureTileCard extends StatelessWidget {
   final bool hasRightPadding;
 
   @override
-  Widget build(BuildContext context) {
-    return Padding(
+  Widget build(BuildContext context) => Padding(
       padding: EdgeInsets.only(
         left: hasLeftPadding ? kHomeDefaultSpacing : 0,
         right: hasRightPadding ? kHomeDefaultSpacing : 10,
@@ -72,7 +71,6 @@ class DayHourTemperatureTileCard extends StatelessWidget {
         ),
       ),
     );
-  }
 
   Color _getTextColor(
     WeatherCondition condition, {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather_map/src/domain/enums/weather_condition.enum.dart';
-import 'day_hour_temperature_tile_card.widget.dart';
+import 'package:weather_map/src/presentation/home/widgets/day_hour_temperature_tile_card.widget.dart';
 
 class TemperatureAlongDayCarouselSlider extends StatelessWidget {
   const TemperatureAlongDayCarouselSlider({super.key, this.loading = false});

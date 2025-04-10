@@ -1,32 +1,32 @@
 name: weather_map
 description: "Weather Map App by ProjectMark"
 publish_to: "none"
-version: 1.0.0+1
+version: 1.0.0+2
 
 environment:
   sdk: ^3.7.2
 
 dependencies:
-  flutter:
-    sdk: flutter
-
-  ## Firebase Packages
-  firebase_core: ^3.13.0
-  firebase_core_platform_interface: ^5.4.0
-  firebase_crashlytics: ^4.3.5
-  firebase_messaging: ^15.2.5
-  firebase_remote_config: ^5.4.3
   ## Community Packages
-  # Logs and erros capture
-  catcher_2: ^2.1.2
   # Customizable carousel slider
   carousel_slider: ^5.0.0
+  # Logs and erros capture
+  catcher_2: ^2.1.2
   # Http client
   dio: ^5.8.0+1
   # Improve web platform URL routes
   dynamic_path_url_strategy: ^1.0.0
   # Multiple languages support
   easy_localization: ^3.0.7+1
+  ## Firebase Packages
+  firebase_core: ^3.13.0
+  firebase_core_platform_interface: ^5.4.0
+  firebase_crashlytics: ^4.3.5
+  firebase_messaging: ^15.2.5
+  firebase_remote_config: ^5.4.3
+  # Flutter SDK
+  flutter:
+    sdk: flutter
   # Native splash screen
   flutter_native_splash: ^2.4.6
   # SVG support
@@ -36,6 +36,8 @@ dependencies:
   freezed_annotation: ^3.0.0
   # State management and dependency injection
   get: ^4.7.2
+  # Routes and navigation
+  go_router: ^14.8.1
   # Themed fonts
   google_fonts: ^6.2.1
   # Local cache
@@ -46,17 +48,14 @@ dependencies:
   logger: ^2.5.0
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
-
   # Code generation
   build_runner: ^2.4.15
   # Change app package name
   change_app_package_name: ^1.3.0
-  # Scripts and tasks runner
-  derry: ^1.5.0
   # Dependencies constraints validator
   dependency_validator: ^4.1.1
+  # Scripts and tasks runner
+  derry: ^1.5.0
   # Environment variables
   flutter_flavorizr: ^2.3.0
   # Code generation
@@ -65,6 +64,9 @@ dev_dependencies:
   flutter_launcher_icons: ^0.14.3
   # Code quality and linting
   flutter_lints: ^5.0.0
+  # Flutter Test
+  flutter_test:
+    sdk: flutter
   # Tests and mocks
   mocktail: ^1.0.4
   # Sort pubspec.yaml dependencies

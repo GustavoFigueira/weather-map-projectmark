@@ -1,12 +1,13 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:logger/logger.dart';
+import 'package:weather_map/src/data/constants/default_cities.dart';
 import 'package:weather_map/src/domain/models/city.model.dart';
 import 'package:weather_map/src/domain/models/weather.model.dart';
 import 'package:weather_map/src/domain/usecases/weather.usecase.dart';
-import 'package:weather_map/src/data/constants/default_cities.dart';
 import 'package:weather_map/src/presentation/global/state/global_state_manager.dart';
 
 class HomeController extends GetxController {
@@ -71,7 +72,7 @@ class HomeController extends GetxController {
         cities.assignAll(cityBox.values.toList());
       } else {
         cities.assignAll(kDefaultAppCities);
-        for (var city in cities) {
+        for (final city in cities) {
           cityBox.put(city.id, city);
         }
       }

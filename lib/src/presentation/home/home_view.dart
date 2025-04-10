@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:weather_map/src/core/constants/theme.dart';
 import 'package:weather_map/src/presentation/global/state/global_state_manager.dart';
 import 'package:weather_map/src/presentation/global/widgets/menu_drawer.widget.dart';
 import 'package:weather_map/src/presentation/home/home_controller.dart';
-import 'package:weather_map/src/core/constants/theme.dart';
-import 'package:weather_map/src/presentation/home/widgets/next_days_weather_table.widget.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:weather_map/src/presentation/home/widgets/cities_horizontal_carousel_slider.widget.dart';
 import 'package:weather_map/src/presentation/home/widgets/default_home_horizontal_spacing.widget.dart';
 import 'package:weather_map/src/presentation/home/widgets/default_home_section.widget.dart';
+import 'package:weather_map/src/presentation/home/widgets/next_days_weather_table.widget.dart';
 import 'package:weather_map/src/presentation/home/widgets/temperature_along_day_carousel_slider.widget.dart';
 
 const kHomeDefaultSpacing = 35.0;
@@ -19,10 +19,10 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final HomeController controller = Get.find();
+    final controller = Get.find<HomeController>();
 
-    return Obx(() {
-      return Stack(
+    return Obx(
+      () => Stack(
         children: [
           Scaffold(
             key: controller.scaffoldKey,
@@ -67,9 +67,7 @@ class HomeView extends StatelessWidget {
                         CitiesHorizontalCarouselSlider(
                           loading: controller.loadingCities.value,
                           cities: controller.cities.toList(),
-                          onCitySelected: (index) {
-                            controller.updateSelectedCity(index);
-                          },
+                          onCitySelected: controller.updateSelectedCity,
                         ),
                         const DefaultHomeHorizontalSpacing(),
                         DefaultHomeSection(
@@ -96,7 +94,7 @@ class HomeView extends StatelessWidget {
           if (GlobalStateManager().loading.value)
             const Center(child: CircularProgressIndicator()),
         ],
-      );
-    });
+      ),
+    );
   }
 }

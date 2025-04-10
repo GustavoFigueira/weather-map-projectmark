@@ -24,8 +24,7 @@ class DefaultHomeSection extends StatelessWidget {
     ),
   );
 
-  Widget _buildContent(BuildContext context) {
-    return Column(
+  Widget _buildContent(BuildContext context) => Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         contentPadding
@@ -35,7 +34,6 @@ class DefaultHomeSection extends StatelessWidget {
         child,
       ],
     );
-  }
 
   @override
   Widget build(BuildContext context) =>

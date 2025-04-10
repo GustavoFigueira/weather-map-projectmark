@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:weather_map/src/presentation/global/widgets/weather_condition_icon.widget.dart';
 import 'package:weather_map/src/domain/enums/weather_condition.enum.dart';
+import 'package:weather_map/src/presentation/global/widgets/weather_condition_icon.widget.dart';
 
 class NextDaysWeatherTable extends StatefulWidget {
   const NextDaysWeatherTable({super.key, this.loading = false});
@@ -24,7 +24,7 @@ class NextDaysWeatherTableState extends State<NextDaysWeatherTable> {
   /// Animates the week weather tiles with a staggered effect.
   /// Each tile will animate in sequence with a delay based on its index.
   void _animateWeekWeatherTiles() {
-    for (int i = 0; i < _opacityValues.length; i++) {
+    for (var i = 0; i < _opacityValues.length; i++) {
       Future.delayed(Duration(milliseconds: 100 * i), () {
         if (mounted) {
           setState(() {
@@ -44,13 +44,13 @@ class NextDaysWeatherTableState extends State<NextDaysWeatherTable> {
     return Table(
       columnWidths: const {
         0: FlexColumnWidth(3),
-        1: FlexColumnWidth(1),
+        1: FlexColumnWidth(),
         2: FlexColumnWidth(3),
       },
       children: List.generate(7, (index) {
         final dayOfWeek =
             ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][index];
-        final weatherCondition = WeatherCondition.sunny;
+        const weatherCondition = WeatherCondition.sunny;
         final minTemp = 15 + index;
         final maxTemp = 25 + index;
 

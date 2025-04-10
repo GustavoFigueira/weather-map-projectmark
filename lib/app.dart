@@ -7,17 +7,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
 import 'package:weather_map/app/config/flavors.dart';
 import 'package:weather_map/src/core/bindings/initial_binding.dart';
 import 'package:weather_map/src/core/constants/locale.constants.dart';
 import 'package:weather_map/src/core/constants/theme.dart';
+import 'package:weather_map/src/core/routing/routes.dart';
 import 'package:weather_map/src/core/services/navigation/navigation_service.dart';
 import 'package:weather_map/src/core/services/services.dart';
-import 'package:weather_map/src/domain/models/city.model.dart';
-import 'package:weather_map/src/domain/models/weather.model.dart';
-import 'package:weather_map/src/presentation/home/home_view.dart';
 
 const defaultTranslationsPath = 'assets/translations';
 
@@ -26,12 +23,14 @@ void _runApp({required MainAppEnvironment environment}) => runApp(
     path: defaultTranslationsPath,
     supportedLocales: supportedLocales,
     fallbackLocale: defaultLocale,
-    child: GetMaterialApp(
+    child: GetMaterialApp.router(
       title: 'Mobile Challenge (ProjectMark)',
       debugShowCheckedModeBanner: false,
-      home: HomeView(),
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.lightTheme,
+      routeInformationParser: router.routeInformationParser,
+      routerDelegate: router.routerDelegate,
+      routeInformationProvider: router.routeInformationProvider,
     ),
   ),
 );
@@ -41,11 +40,6 @@ Future<void> mainApp({required MainAppEnvironment environment}) async {
     () async {
       WidgetsFlutterBinding.ensureInitialized();
       await EasyLocalization.ensureInitialized();
-
-      /// Initialize Hive local database with web compatibility.
-      await Hive.initFlutter();
-      Hive.registerAdapter(CityModelAdapter());
-      Hive.registerAdapter(WeatherModelAdapter());
 
       // Remove the # symbol from the URL (web only).
       setPathUrlStrategy();
@@ -67,23 +61,18 @@ Future<void> mainApp({required MainAppEnvironment environment}) async {
       if (kDebugMode) {
         _runApp(environment: environment);
       } else {
-        Catcher2Options debugOptions = Catcher2Options(DialogReportMode(), [
+        final debugOptions = Catcher2Options(DialogReportMode(), [
           ConsoleHandler(),
         ]);
-        Catcher2Options releaseOptions = Catcher2Options(DialogReportMode(), [
-          EmailManualHandler(["recipient@email.com"]),
+        final releaseOptions = Catcher2Options(DialogReportMode(), [
+          EmailManualHandler(['me@guslopes.dev']),
         ]);
-        // Catcher2Options profileOptions = Catcher2Options(
-        //   NotificationReportMode(), [ConsoleHandler(), ToastHandler()],
-        //   handlerTimeout: 10000, customParameters: {"example"c: "example_parameter"},);
 
         Catcher2(
           runAppFunction: () => _runApp(environment: environment),
           navigatorKey: NavigationService.rootNavigatorKey,
           debugConfig: debugOptions,
           releaseConfig: releaseOptions,
-          //profileConfig: profileOptions,
-          // enableLogger: false,
         );
       }
     },
