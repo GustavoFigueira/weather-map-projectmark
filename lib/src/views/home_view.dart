@@ -8,6 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:weather_map/src/views/widgets/cities_horizontal_carousel.widget.dart';
 import 'package:weather_map/src/views/widgets/default_home_horizontal_spacing.widget.dart';
 import 'package:weather_map/src/views/widgets/default_home_section.widget.dart';
+import 'package:weather_map/src/views/widgets/temperature_along_day_carousel.widget.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -157,10 +158,7 @@ class HomeView extends StatelessWidget {
               )),
               DefaultHomeSection(
                 title: 'Next 7 Days',
-                child: Column(children: [
-                  
-                ],
-              ),
+                child: TemperatureAlongDayCarousel(),
               ),
             ],
           ),

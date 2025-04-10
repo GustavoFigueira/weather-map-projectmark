@@ -1,62 +1,81 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:weather_map/src/core/constants/theme.dart';
+import 'package:weather_map/src/views/widgets/cities_carousel_card.widget.dart';
 
-class CitiesHorizontalCarousel extends StatelessWidget {
+class CitiesHorizontalCarousel extends StatefulWidget {
   const CitiesHorizontalCarousel({super.key});
 
   @override
-  Widget build(BuildContext context) => Container(
-    height: 194,
-    padding: const EdgeInsets.only(left: 35),
-    child: ListView(
-      scrollDirection: Axis.horizontal,
-      physics: const BouncingScrollPhysics(),
+  CitiesHorizontalCarouselState createState() =>
+      CitiesHorizontalCarouselState();
+}
+
+class CitiesHorizontalCarouselState extends State<CitiesHorizontalCarousel> {
+  int _currentIndex = 0;
+  final CarouselSliderController _controller = CarouselSliderController();
+
+  final List<Widget> _cards = [
+    CitiesCarouselCard(
+      location: 'New York',
+      temperature: '25°C',
+      humidity: '60%',
+      pressure: '1013 hPa',
+    ),
+    CitiesCarouselCard(
+      location: 'Los Angeles',
+      temperature: '30°C',
+      humidity: '50%',
+      pressure: '1010 hPa',
+    ),
+    CitiesCarouselCard(
+      location: 'Chicago',
+      temperature: '20°C',
+      humidity: '70%',
+      pressure: '1015 hPa',
+    ),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
       children: [
-        Card(
-          margin: const EdgeInsets.all(8.0),
-          child: Container(
-            width: 150,
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Icon(Icons.cloud, size: 50, color: Colors.blue),
-                SizedBox(height: 10),
-                Text('Card 1', style: TextStyle(fontSize: 16)),
-              ],
-            ),
+        CarouselSlider(
+          items: _cards,
+          options: CarouselOptions(
+            height: 194,
+            enableInfiniteScroll: false,
+            disableCenter: true,
+            onPageChanged: (index, reason) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
           ),
         ),
-        Card(
-          margin: const EdgeInsets.all(8.0),
-          child: Container(
-            width: 150,
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Icon(Icons.wb_sunny, size: 50, color: Colors.orange),
-                SizedBox(height: 10),
-                Text('Card 2', style: TextStyle(fontSize: 16)),
-              ],
-            ),
-          ),
-        ),
-        Card(
-          margin: const EdgeInsets.all(8.0),
-          child: Container(
-            width: 150,
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Icon(Icons.ac_unit, size: 50, color: Colors.lightBlue),
-                SizedBox(height: 10),
-                Text('Card 3', style: TextStyle(fontSize: 16)),
-              ],
-            ),
-          ),
+        const SizedBox(height: 21),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children:
+              _cards.asMap().entries.map((entry) {
+                return GestureDetector(
+                  onTap: () => _controller.animateToPage(entry.key),
+                  child: Container(
+                    width: 9,
+                    height: 9,
+                    margin: EdgeInsets.symmetric(horizontal: 7),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color:
+                          _currentIndex == entry.key
+                              ? AppTheme.primaryColor
+                              : AppTheme.accentColor,
+                    ),
+                  ),
+                );
+              }).toList(),
         ),
       ],
-    ),
-  );
+    );
+  }
 }
