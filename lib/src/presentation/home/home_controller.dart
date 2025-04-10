@@ -61,6 +61,8 @@ class HomeController extends GetxController {
 
   Future<void> fetchCities() async {
     try {
+      loadingCities.value = true;
+
       // Open Hive box for cities
       final cityBox = await Hive.openBox<CityModel>('cities');
 

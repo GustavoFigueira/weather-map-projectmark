@@ -8,8 +8,11 @@ import 'package:weather_map/src/core/services/communicator/dio_client.dart';
 class InitialBinding extends Bindings {
   @override
   void dependencies() {
-    // Initialize DioClient
-    Get.lazyPut(() => DioClient());
+    // Initialize GlobalStateManager
+    final globalStateManager = Get.put(GlobalStateManager());
+
+    // Initialize DioClient with environment from GlobalStateManager
+    Get.lazyPut(() => DioClient(environment: globalStateManager.environment.value!));
 
     // Initialize WeatherRepository
     Get.lazyPut(() => WeatherRepository(Get.find<DioClient>()));
@@ -19,8 +22,5 @@ class InitialBinding extends Bindings {
 
     // Initialize HomeController
     Get.put(HomeController(Get.find<FetchWeatherUseCase>()));
-
-    // Initialize GlobalStateManager
-    Get.put(GlobalStateManager());
   }
 }

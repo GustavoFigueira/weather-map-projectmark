@@ -65,18 +65,26 @@ class HomeView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CitiesHorizontalCarouselSlider(
-                          cities: controller.cities,
+                          loading: controller.loadingCities.value,
+                          cities: controller.cities.toList(),
+                          onCitySelected: (index) {
+                            controller.updateSelectedCity(index);
+                          },
                         ),
                         const DefaultHomeHorizontalSpacing(),
-                        const DefaultHomeSection(
+                        DefaultHomeSection(
                           title: 'Today',
                           contentPadding: false,
-                          child: TemperatureAlongDayCarouselSlider(),
+                          child: TemperatureAlongDayCarouselSlider(
+                            loading: controller.loadingWeather.value,
+                          ),
                         ),
                         const DefaultHomeHorizontalSpacing(),
-                        const DefaultHomeSection(
+                        DefaultHomeSection(
                           title: 'Next 7 Days',
-                          child: NextDaysWeatherTable(),
+                          child: NextDaysWeatherTable(
+                            loading: controller.loadingWeather.value,
+                          ),
                         ),
                       ],
                     ),

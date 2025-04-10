@@ -1,16 +1,21 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:weather_map/src/core/constants/theme.dart';
 import 'package:weather_map/src/domain/models/city.model.dart';
-import 'package:weather_map/src/presentation/home/home_controller.dart';
 import 'package:weather_map/src/presentation/home/home_view.dart';
 import 'package:weather_map/src/presentation/home/widgets/cities_carousel_card.widget.dart';
 
 class CitiesHorizontalCarouselSlider extends StatefulWidget {
-  const CitiesHorizontalCarouselSlider({super.key, required this.cities});
+  const CitiesHorizontalCarouselSlider({
+    super.key,
+    required this.cities,
+    this.loading = false,
+    this.onCitySelected,
+  });
 
   final List<CityModel> cities;
+  final bool loading;
+  final void Function(int index)? onCitySelected;
 
   @override
   CitiesHorizontalCarouselSliderState createState() =>
@@ -29,7 +34,11 @@ class CitiesHorizontalCarouselSliderState
 
   @override
   Widget build(BuildContext context) {
-    final HomeController controller = Get.find();
+    if (widget.loading) {
+      return const Center(
+        child: CircularProgressIndicator(color: AppTheme.primaryColor),
+      );
+    }
 
     if (widget.cities.isEmpty) {
       return const Center(
@@ -72,7 +81,7 @@ class CitiesHorizontalCarouselSliderState
               setState(() {
                 _currentIndex = index;
               });
-              controller.updateSelectedCity(index);
+              widget.onCitySelected?.call(index);
             },
           ),
         ),

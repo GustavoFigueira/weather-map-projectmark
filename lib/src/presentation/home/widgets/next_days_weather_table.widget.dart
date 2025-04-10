@@ -4,7 +4,9 @@ import 'package:weather_map/src/presentation/global/widgets/weather_condition_ic
 import 'package:weather_map/src/domain/enums/weather_condition.enum.dart';
 
 class NextDaysWeatherTable extends StatefulWidget {
-  const NextDaysWeatherTable({super.key});
+  const NextDaysWeatherTable({super.key, this.loading = false});
+
+  final bool loading;
 
   @override
   NextDaysWeatherTableState createState() => NextDaysWeatherTableState();
@@ -35,6 +37,10 @@ class NextDaysWeatherTableState extends State<NextDaysWeatherTable> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.loading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
     return Table(
       columnWidths: const {
         0: FlexColumnWidth(3),

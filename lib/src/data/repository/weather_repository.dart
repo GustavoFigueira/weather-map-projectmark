@@ -3,9 +3,6 @@ import 'package:weather_map/src/core/services/communicator/dio_client.dart';
 import 'package:weather_map/src/domain/models/weather.model.dart';
 
 class WeatherRepository {
-  static const String _apiKey = 'API_KEY';
-  static const String _baseUrl = 'https://api.openweathermap.org/data/2.5/weather';
-
   final DioClient _dioClient;
 
   WeatherRepository(this._dioClient);
@@ -16,13 +13,8 @@ class WeatherRepository {
   }) async {
     try {
       final response = await _dioClient.get(
-        _baseUrl,
-        queryParameters: {
-          'lat': lat,
-          'lon': lon,
-          'appid': _apiKey,
-          'units': 'metric',
-        },
+        '/weather',
+        queryParameters: {'lat': lat, 'lon': lon, 'units': 'metric'},
       );
 
       if (response.statusCode == 200) {
