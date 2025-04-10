@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:weather_map/src/features/home/widgets/default_home_section_padding.widget.dart';
+import 'package:weather_map/src/presentation/home/widgets/default_home_section_padding.widget.dart';
 
 class DefaultHomeSection extends StatelessWidget {
   const DefaultHomeSection({

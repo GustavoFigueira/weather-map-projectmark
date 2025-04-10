@@ -1,8 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_map/src/core/constants/theme.dart';
-import 'package:weather_map/src/features/home/home_view.dart';
-import 'package:weather_map/src/features/home/widgets/cities_carousel_card.widget.dart';
+import 'package:weather_map/src/domain/enums/weather_condition.enum.dart';
+import 'package:weather_map/src/presentation/home/home_view.dart';
+import 'package:weather_map/src/presentation/home/widgets/cities_carousel_card.widget.dart';
 
 class CitiesHorizontalCarouselSlider extends StatefulWidget {
   const CitiesHorizontalCarouselSlider({super.key});
@@ -12,7 +13,8 @@ class CitiesHorizontalCarouselSlider extends StatefulWidget {
       CitiesHorizontalCarouselSliderState();
 }
 
-class CitiesHorizontalCarouselSliderState extends State<CitiesHorizontalCarouselSlider> {
+class CitiesHorizontalCarouselSliderState
+    extends State<CitiesHorizontalCarouselSlider> {
   int _currentIndex = 0;
   final CarouselSliderController _controller = CarouselSliderController();
 

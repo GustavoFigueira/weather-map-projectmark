@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'package:get/get.dart';
-import 'package:weather_map/src/models/city.dart';
-import 'package:weather_map/src/models/weather.dart';
-import 'package:weather_map/src/services/weather_service.dart';
+import 'package:weather_map/src/domain/models/city.model.dart';
+import 'package:weather_map/src/domain/models/weather.model.dart';
+import 'package:weather_map/src/data/repository/weather_repository.dart';
 
 class HomeController extends GetxController {
-  final cities = <City>[
-    City(
+  final cities = <CityModel>[
+    CityModel(
       id: 1,
       label: 'Joinville - SC - Brazil',
       name: 'Joinville',
@@ -16,7 +16,7 @@ class HomeController extends GetxController {
       lat: '-26.30444000',
       long: '-48.84556000',
     ),
-    City(
+    CityModel(
       id: 2,
       label: 'San Francisco - CA - USA',
       name: 'San Francisco',
@@ -26,7 +26,7 @@ class HomeController extends GetxController {
       lat: '37.77493000',
       long: '-122.41942000',
     ),
-    City(
+    CityModel(
       id: 3,
       label: 'Urubici - SC - Brazil',
       name: 'Urubici',
@@ -39,7 +39,7 @@ class HomeController extends GetxController {
   ];
 
   // Map to store weather for each city (in memory cache)
-  final weatherData = <int, Weather?>{}.obs;
+  final weatherData = <int, WeatherModel?>{}.obs;
 
   Timer? _refreshTimer;
 
@@ -61,8 +61,8 @@ class HomeController extends GetxController {
   }
 
   void fetchWeatherForCities() async {
-    for (City city in cities) {
-      final weather = await WeatherService.fetchWeather(
+    for (CityModel city in cities) {
+      final weather = await WeatherRepository.fetchWeather(
         lat: city.lat,
         lon: city.long,
       );

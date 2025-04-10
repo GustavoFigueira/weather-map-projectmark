@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:weather_map/src/features/home/widgets/cities_carousel_card.widget.dart';
+import 'package:weather_map/src/domain/enums/weather_condition.enum.dart';
 
 class WeatherConditionIcon extends StatelessWidget {
   final WeatherCondition condition;

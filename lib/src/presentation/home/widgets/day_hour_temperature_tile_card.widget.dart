@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:weather_map/src/features/global/widgets/weather_condition_icon.widget.dart';
-import 'package:weather_map/src/features/home/home_view.dart';
-import 'package:weather_map/src/features/home/widgets/cities_carousel_card.widget.dart';
+import 'package:weather_map/src/presentation/global/widgets/weather_condition_icon.widget.dart';
+import 'package:weather_map/src/presentation/home/home_view.dart';
+import 'package:weather_map/src/domain/enums/weather_condition.enum.dart';
 
 class DayHourTemperatureTileCard extends StatelessWidget {
   const DayHourTemperatureTileCard({

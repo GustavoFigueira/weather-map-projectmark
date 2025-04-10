@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:weather_map/src/features/global/widgets/weather_condition_icon.widget.dart';
-import 'package:weather_map/src/features/home/widgets/cities_carousel_card.widget.dart';
+import 'package:weather_map/src/presentation/global/widgets/weather_condition_icon.widget.dart';
+import 'package:weather_map/src/domain/enums/weather_condition.enum.dart';
 
 class NextDaysWeatherTable extends StatefulWidget {
   const NextDaysWeatherTable({super.key});

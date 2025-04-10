@@ -8,12 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:weather_map/app/config/flavors.dart';
-import 'package:weather_map/src/bindings/initial_binding.dart';
+import 'package:weather_map/src/core/bindings/initial_binding.dart';
 import 'package:weather_map/src/core/constants/locale.constants.dart';
 import 'package:weather_map/src/core/constants/theme.dart';
 import 'package:weather_map/src/core/services/navigation/navigation_service.dart';
 import 'package:weather_map/src/core/services/services.dart';
-import 'package:weather_map/src/features/home/home_view.dart';
+import 'package:weather_map/src/presentation/home/home_view.dart';
 
 const defaultTranslationsPath = 'assets/translations';
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:weather_map/app/config/firebase/firebase.init.dart';
 import 'package:weather_map/app/config/flavors.dart';
-import 'package:weather_map/src/features/global/views/services_loading.view.dart';
+import 'package:weather_map/src/presentation/global/views/services_loading.view.dart';
 
 /// Initialize services of the app including Firebase.
 Future<void> initServices(MainAppEnvironment flavor) async {

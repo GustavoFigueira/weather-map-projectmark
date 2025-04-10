@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:weather_map/src/features/home/home_controller.dart';
+import 'package:weather_map/src/presentation/global/widgets/menu_drawer.widget.dart';
+import 'package:weather_map/src/presentation/home/home_controller.dart';
 import 'package:weather_map/src/core/constants/theme.dart';
-import 'package:weather_map/src/features/home/widgets/next_days_weather_table.widget.dart';
-import 'package:weather_map/src/models/city.dart';
-import 'package:weather_map/src/models/weather.dart';
+import 'package:weather_map/src/presentation/home/widgets/next_days_weather_table.widget.dart';
+import 'package:weather_map/src/domain/models/city.model.dart';
+import 'package:weather_map/src/domain/models/weather.model.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:weather_map/src/features/home/widgets/cities_horizontal_carousel_slider.widget.dart';
-import 'package:weather_map/src/features/home/widgets/default_home_horizontal_spacing.widget.dart';
-import 'package:weather_map/src/features/home/widgets/default_home_section.widget.dart';
-import 'package:weather_map/src/features/home/widgets/temperature_along_day_carousel_slider.widget.dart';
+import 'package:weather_map/src/presentation/home/widgets/cities_horizontal_carousel_slider.widget.dart';
+import 'package:weather_map/src/presentation/home/widgets/default_home_horizontal_spacing.widget.dart';
+import 'package:weather_map/src/presentation/home/widgets/default_home_section.widget.dart';
+import 'package:weather_map/src/presentation/home/widgets/temperature_along_day_carousel_slider.widget.dart';
 
 const kHomeDefaultSpacing = 35.0;
 
@@ -40,7 +41,7 @@ class HomeViewState extends State<HomeView> {
     }
   }
 
-  Widget buildCityCard(City city, Weather? weather) {
+  Widget buildCityCard(CityModel city, WeatherModel? weather) {
     return Card(
       margin: const EdgeInsets.all(8.0),
       child: Padding(
@@ -107,90 +108,7 @@ class HomeViewState extends State<HomeView> {
         ),
         centerTitle: true,
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            DrawerHeader(
-              decoration: const BoxDecoration(color: Colors.transparent),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                    'assets/images/logos/projectmark-icon.svg',
-                    height: 80,
-                    width: 80,
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    'Weather Map',
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            ListTile(
-              title: Text(
-                'Last Update: ${DateTime.now().toLocal().toString().split('.')[0]}',
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              leading: const Icon(Icons.update, color: Colors.blue),
-            ),
-            const Divider(),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'How to Update Weather:',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Icon(Icons.refresh, color: Colors.green, size: 20),
-                      SizedBox(width: 8),
-                      Expanded(
-                        child: Text(
-                          'Pull down to refresh the page.',
-                          style: TextStyle(fontSize: 16),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Icon(Icons.timer, color: Colors.orange, size: 20),
-                      SizedBox(width: 8),
-                      Expanded(
-                        child: Text(
-                          'Weather updates automatically every 10 minutes.',
-                          style: TextStyle(fontSize: 16),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+      drawer: MenuDrawer(),
       body: SafeArea(
         child: RefreshIndicator(
           color: AppTheme.primaryColor,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weather_map/src/features/home/home_view.dart';
+import 'package:weather_map/src/presentation/home/home_view.dart';
 
 class DefaultHomeSectionPadding extends StatelessWidget {
   const DefaultHomeSectionPadding({super.key, required this.child});

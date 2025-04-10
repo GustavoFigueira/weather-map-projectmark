@@ -1,30 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-enum WeatherCondition { scorching, sunny, clear, rainy, cloudy, snowy }
-
-/// This enum is based on the OpenWeatherMap API weather conditions.
-/// It includes a variety of weather conditions such as sunny, cloudy, rainy, etc.
-/// For more details, refer to the OpenWeatherMap API documentation:
-/// [https://openweathermap.org/weather-conditions]
-// enum WeatherCondition {
-//   thunderstorm,
-//   drizzle,
-//   rain,
-//   snow,
-//   mist,
-//   smoke,
-//   haze,
-//   dust,
-//   fog,
-//   sand,
-//   ash,
-//   squall,
-//   tornado,
-//   clear,
-//   clouds,
-// }
+import 'package:weather_map/src/domain/enums/weather_condition.enum.dart';
 
 const List<double> _kDefaultLinearGradientStops = [0.6, 1];
 

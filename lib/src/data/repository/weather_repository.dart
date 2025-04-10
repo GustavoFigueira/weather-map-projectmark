@@ -1,10 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:weather_map/src/core/services/communicator/dio_client.dart';
 
-import '../models/weather.dart';
+import '../../domain/models/weather.model.dart';
 
-class WeatherService {
-  // IMPORTANT: Replace with your actual API key.
+class WeatherRepository {
   static const String _apiKey = 'YOUR_API_KEY';
   static const String _baseUrl =
       'https://api.openweathermap.org/data/2.5/weather';
@@ -12,7 +11,7 @@ class WeatherService {
   // Use our DioClient abstraction.
   static final DioClient _dioClient = DioClient();
 
-  static Future<Weather?> fetchWeather({
+  static Future<WeatherModel?> fetchWeather({
     required String lat,
     required String lon,
   }) async {
@@ -29,7 +28,7 @@ class WeatherService {
       // Check for success.
       if (response.statusCode == 200) {
         // The response data is already a Map<String, dynamic>.
-        return Weather.fromJson(response.data);
+        return WeatherModel.fromJson(response.data);
       } else {
         // If the server did not return a 200 OK response,
         // handle the error accordingly.
