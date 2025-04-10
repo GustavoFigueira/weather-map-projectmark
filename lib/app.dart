@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:catcher_2/catcher_2.dart';
 import 'package:dynamic_path_url_strategy/dynamic_path_url_strategy.dart';
@@ -28,6 +29,10 @@ void _runApp({required MainAppEnvironment environment}) => runApp(
     child: GetMaterialApp.router(
       title: 'Mobile Challenge (ProjectMark)',
       debugShowCheckedModeBanner: false,
+      // Enables click and drag with the mouse on scrollable widgets.
+      scrollBehavior: const MaterialScrollBehavior().copyWith(
+        dragDevices: {PointerDeviceKind.mouse},
+      ),
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.lightTheme,
       routeInformationParser: router.routeInformationParser,

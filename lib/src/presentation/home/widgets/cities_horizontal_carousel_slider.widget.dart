@@ -2,7 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_map/src/core/constants/theme.dart';
 import 'package:weather_map/src/domain/models/city.model.dart';
-import 'package:weather_map/src/presentation/home/home_view.dart';
+import 'package:weather_map/src/presentation/home/home.view.dart';
 import 'package:weather_map/src/presentation/home/widgets/cities_carousel_card.widget.dart';
 
 class CitiesHorizontalCarouselSlider extends StatefulWidget {

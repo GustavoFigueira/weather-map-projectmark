@@ -67,8 +67,10 @@ class NextDaysWeatherTableState extends State<NextDaysWeatherTable> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: Text(
-                        DateFormat.EEEE().format(
-                          DateTime.now().add(Duration(days: index)),
+                        toBeginningOfSentenceCase(
+                          DateFormat.EEEE().format(
+                            DateTime.now().add(Duration(days: index + 1)),
+                          ),
                         ),
                         style: TextStyle(
                           fontSize: 17,

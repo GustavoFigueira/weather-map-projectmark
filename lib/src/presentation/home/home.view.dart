@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:weather_map/src/core/constants/theme.dart';
 import 'package:weather_map/src/presentation/global/state/global_state_manager.dart';
 import 'package:weather_map/src/presentation/global/widgets/menu_drawer.widget.dart';
-import 'package:weather_map/src/presentation/home/home_controller.dart';
+import 'package:weather_map/src/presentation/home/home.viewmodel.dart';
 import 'package:weather_map/src/presentation/home/widgets/cities_horizontal_carousel_slider.widget.dart';
 import 'package:weather_map/src/presentation/home/widgets/default_home_horizontal_spacing.widget.dart';
 import 'package:weather_map/src/presentation/home/widgets/default_home_section.widget.dart';
@@ -19,7 +19,7 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<HomeController>();
+    final controller = Get.find<HomeViewModel>();
 
     return Obx(
       () => Stack(
@@ -65,8 +65,8 @@ class HomeView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CitiesHorizontalCarouselSlider(
-                          loading: controller.model.loadingCities.value,
-                          cities: controller.model.cities.toList(),
+                          loading: controller.loadingCities.value,
+                          cities: controller.cities.toList(),
                           onCitySelected: controller.updateSelectedCity,
                         ),
                         const DefaultHomeHorizontalSpacing(),
@@ -74,16 +74,16 @@ class HomeView extends StatelessWidget {
                           title: 'Today',
                           contentPadding: false,
                           child: TemperatureAlongDayCarouselSlider(
-                            loading: controller.model.loadingWeather.value,
-                            nextHoursWeather: controller.model.nextHoursWeather,
+                            loading: controller.loadingWeather.value,
+                            nextHoursWeather: controller.nextHoursWeather,
                           ),
                         ),
                         const DefaultHomeHorizontalSpacing(),
                         DefaultHomeSection(
                           title: 'Next 7 Days',
                           child: NextDaysWeatherTable(
-                            loading: controller.model.loadingWeather.value,
-                            nextDaysWeather: controller.model.nextDaysWeather,
+                            loading: controller.loadingWeather.value,
+                            nextDaysWeather: controller.nextDaysWeather,
                           ),
                         ),
                       ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:weather_map/src/domain/models/day_hour_weather.model.dart';
 import 'package:weather_map/src/presentation/home/widgets/day_hour_temperature_tile_card.widget.dart';
 
@@ -27,9 +28,12 @@ class TemperatureAlongDayCarouselSlider extends StatelessWidget {
         itemBuilder: (context, index) {
           final weather = nextHoursWeather[index];
           final isCurrentHour = DateTime.now().hour == weather.currentHour;
+          final formattedTime = DateFormat.jm().format(
+            DateTime(0, 1, 1, weather.currentHour),
+          );
 
           return DayHourTemperatureTileCard(
-            time: '${weather.currentHour}:00',
+            time: formattedTime,
             temperature: weather.temperature,
             condition: weather.condition,
             isCurrentHour: isCurrentHour,
