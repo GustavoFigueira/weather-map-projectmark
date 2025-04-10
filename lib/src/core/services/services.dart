@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:weather_map/app/config/firebase/firebase.init.dart';
 import 'package:weather_map/app/config/flavors.dart';
 import 'package:weather_map/src/features/global/views/services_loading.view.dart';
 
@@ -10,7 +11,7 @@ Future<void> initServices(MainAppEnvironment flavor) async {
 
   // Initialize Firebase with the given flavor.
   // TODO: configure Firebase
-  //await initFirebase(flavor);
+  await initFirebase(flavor);
 
   // Initialize services of the app in parallel.
   await Future.wait([

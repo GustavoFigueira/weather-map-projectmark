@@ -24,10 +24,12 @@ dependencies:
   easy_localization: ^3.0.7+1
   flutter_flavor: ^3.1.4
   flutter_native_splash: ^2.4.6
+  flutter_svg: ^2.0.17
   freezed: ^3.0.6
   freezed_annotation: ^3.0.0
   get: ^4.7.2
   google_fonts: ^6.2.1
+  logger: ^2.5.0
 
 dev_dependencies:
   flutter_test:
@@ -102,6 +104,8 @@ flutter:
   assets:
     - assets/
     - assets/images/
+    - assets/images/extra/
+    - assets/images/logos/
     - assets/translations/
     - assets/videos/
 
