@@ -13,7 +13,7 @@ import 'package:weather_map/src/core/constants/locale.constants.dart';
 import 'package:weather_map/src/core/constants/theme.dart';
 import 'package:weather_map/src/core/services/navigation/navigation_service.dart';
 import 'package:weather_map/src/core/services/services.dart';
-import 'package:weather_map/src/views/home_view.dart';
+import 'package:weather_map/src/features/home/home_view.dart';
 
 const defaultTranslationsPath = 'assets/translations';
 

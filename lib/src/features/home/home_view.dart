@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:weather_map/src/controllers/weather_controller.dart';
+import 'package:weather_map/src/features/home/home_controller.dart';
 import 'package:weather_map/src/core/constants/theme.dart';
+import 'package:weather_map/src/features/home/widgets/next_days_weather_table.widget.dart';
 import 'package:weather_map/src/models/city.dart';
 import 'package:weather_map/src/models/weather.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:weather_map/src/views/widgets/cities_horizontal_carousel_slider.widget.dart';
-import 'package:weather_map/src/views/widgets/default_home_horizontal_spacing.widget.dart';
-import 'package:weather_map/src/views/widgets/default_home_section.widget.dart';
-import 'package:weather_map/src/views/widgets/temperature_along_day_carousel_slider.widget.dart';
+import 'package:weather_map/src/features/home/widgets/cities_horizontal_carousel_slider.widget.dart';
+import 'package:weather_map/src/features/home/widgets/default_home_horizontal_spacing.widget.dart';
+import 'package:weather_map/src/features/home/widgets/default_home_section.widget.dart';
+import 'package:weather_map/src/features/home/widgets/temperature_along_day_carousel_slider.widget.dart';
 
 const kHomeDefaultSpacing = 35.0;
 
@@ -20,39 +21,15 @@ class HomeView extends StatefulWidget {
   HomeViewState createState() => HomeViewState();
 }
 
-class HomeViewState extends State<HomeView> with TickerProviderStateMixin {
+class HomeViewState extends State<HomeView> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  late final List<AnimationController> _animationControllers;
 
   @override
   void initState() {
     super.initState();
-    _animationControllers = List.generate(
-      7,
-      (index) => AnimationController(
-        vsync: this,
-        duration: Duration(milliseconds: 300),
-      ),
-    );
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      for (int i = 0; i < _animationControllers.length; i++) {
-        Future.delayed(Duration(milliseconds: 200 * i), () {
-          _animationControllers[i].forward();
-        });
-      }
-    });
   }
 
-  @override
-  void dispose() {
-    for (final controller in _animationControllers) {
-      controller.dispose();
-    }
-    super.dispose();
-  }
-
-  // Helper function to determine the color based on temperature.
+  /// Helper function to determine the color based on temperature.
   Color getTemperatureColor(double temperature) {
     if (temperature <= 5) {
       return Colors.blue;
@@ -106,7 +83,7 @@ class HomeViewState extends State<HomeView> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final WeatherController controller = Get.find();
+    final HomeController controller = Get.find();
 
     return Scaffold(
       key: _scaffoldKey,
@@ -238,52 +215,7 @@ class HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                   DefaultHomeHorizontalSpacing(),
                   DefaultHomeSection(
                     title: 'Next 7 Days',
-                    child: Column(
-                      children: List.generate(7, (index) {
-                        final dayOfWeek =
-                            [
-                              'Mon',
-                              'Tue',
-                              'Wed',
-                              'Thu',
-                              'Fri',
-                              'Sat',
-                              'Sun',
-                            ][index];
-                        final weatherIcon = Icons.wb_sunny;
-                        final minTemp = 15 + index;
-                        final maxTemp = 25 + index;
-
-                        return FadeTransition(
-                          opacity: _animationControllers[index].drive(
-                            CurveTween(curve: Curves.easeIn),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  dayOfWeek,
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Icon(
-                                  weatherIcon,
-                                  color: Colors.orange,
-                                ), // Replace with dynamic color
-                                Text(
-                                  '$minTemp°C / $maxTemp°C',
-                                  style: const TextStyle(fontSize: 16),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      }),
-                    ),
+                    child: NextDaysWeatherTable(),
                   ),
                 ],
               ),

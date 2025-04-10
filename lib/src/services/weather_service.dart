@@ -35,7 +35,7 @@ class WeatherService {
         // handle the error accordingly.
         return null;
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       // Handle DioError accordingly.
       return null;
     }

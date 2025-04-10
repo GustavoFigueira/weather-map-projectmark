@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:get/get.dart';
-import '../models/city.dart';
-import '../models/weather.dart';
-import '../services/weather_service.dart';
+import 'package:weather_map/src/models/city.dart';
+import 'package:weather_map/src/models/weather.dart';
+import 'package:weather_map/src/services/weather_service.dart';
 
-class WeatherController extends GetxController {
+class HomeController extends GetxController {
   final cities = <City>[
     City(
       id: 1,

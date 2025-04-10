@@ -1,8 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_map/src/core/constants/theme.dart';
-import 'package:weather_map/src/views/home_view.dart';
-import 'package:weather_map/src/views/widgets/cities_carousel_card.widget.dart';
+import 'package:weather_map/src/features/home/home_view.dart';
+import 'package:weather_map/src/features/home/widgets/cities_carousel_card.widget.dart';
 
 class CitiesHorizontalCarouselSlider extends StatefulWidget {
   const CitiesHorizontalCarouselSlider({super.key});

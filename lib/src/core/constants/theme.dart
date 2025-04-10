@@ -26,7 +26,10 @@ class AppTheme {
       titleMedium: GoogleFonts.archivo(color: textColor, fontSize: 16),
       titleSmall: GoogleFonts.archivo(color: textColor, fontSize: 14),
     ),
-    appBarTheme: AppBarTheme(color: Colors.transparent),
+    appBarTheme: AppBarTheme(
+      color: Colors.transparent,
+      surfaceTintColor: Colors.transparent,
+    ),
     buttonTheme: ButtonThemeData(
       buttonColor: primaryColor,
       textTheme: ButtonTextTheme.primary,

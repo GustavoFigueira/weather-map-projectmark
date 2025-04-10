@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 enum WeatherCondition { scorching, sunny, clear, rainy, cloudy, snowy }
@@ -175,11 +176,15 @@ class CitiesCarouselCard extends StatelessWidget {
           ),
         );
       case WeatherCondition.cloudy:
-        return Image.asset(
-          'assets/images/illustrations/cloud.svg',
-          width: size,
-          height: size,
-        );
+        return SvgPicture.asset(
+            'assets/images/illustrations/cloud.svg',
+            width: size,
+            height: size,
+            colorFilter: ColorFilter.mode(
+              Color(0xFFA0AEC0),
+              BlendMode.srcATop,
+            ),
+          );
       default:
         return const SizedBox.shrink();
     }

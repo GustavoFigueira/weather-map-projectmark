@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weather_map/src/views/widgets/cities_carousel_card.widget.dart';
+import 'package:weather_map/src/features/home/widgets/cities_carousel_card.widget.dart';
 import 'day_hour_temperature_tile_card.widget.dart';
 
 class TemperatureAlongDayCarouselSlider extends StatelessWidget {
