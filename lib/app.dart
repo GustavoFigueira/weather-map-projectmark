@@ -25,7 +25,7 @@ void _runApp({required MainAppEnvironment environment}) => runApp(
     child: GetMaterialApp(
       title: 'Mobile Challenge (ProjectMark)',
       debugShowCheckedModeBanner: false,
-      home: const HomeView(),
+      home: HomeView(),
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.lightTheme,
     ),

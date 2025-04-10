@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_map/src/views/home_view.dart';
 
 class DefaultHomeSectionPadding extends StatelessWidget {
   const DefaultHomeSectionPadding({super.key, required this.child});
@@ -6,6 +7,8 @@ class DefaultHomeSectionPadding extends StatelessWidget {
   final Widget child;
 
   @override
-  Widget build(BuildContext context) =>
-      Padding(padding: EdgeInsets.symmetric(horizontal: 35), child: child);
+  Widget build(BuildContext context) => Padding(
+    padding: EdgeInsets.symmetric(horizontal: kHomeDefaultSpacing),
+    child: child,
+  );
 }

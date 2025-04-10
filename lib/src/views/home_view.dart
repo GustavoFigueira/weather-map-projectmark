@@ -2,16 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:weather_map/src/controllers/weather_controller.dart';
+import 'package:weather_map/src/core/constants/theme.dart';
 import 'package:weather_map/src/models/city.dart';
 import 'package:weather_map/src/models/weather.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:weather_map/src/views/widgets/cities_horizontal_carousel.widget.dart';
+import 'package:weather_map/src/views/widgets/cities_horizontal_carousel_slider.widget.dart';
 import 'package:weather_map/src/views/widgets/default_home_horizontal_spacing.widget.dart';
 import 'package:weather_map/src/views/widgets/default_home_section.widget.dart';
-import 'package:weather_map/src/views/widgets/temperature_along_day_carousel.widget.dart';
+import 'package:weather_map/src/views/widgets/temperature_along_day_carousel_slider.widget.dart';
+
+const kHomeDefaultSpacing = 35.0;
 
 class HomeView extends StatelessWidget {
-  const HomeView({super.key});
+  HomeView({super.key});
+
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   // Helper function to determine the color based on temperature.
   Color getTemperatureColor(double temperature) {
@@ -70,6 +75,7 @@ class HomeView extends StatelessWidget {
     final WeatherController controller = Get.find();
 
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Color(0xFFF7FAFC),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -85,7 +91,7 @@ class HomeView extends StatelessWidget {
         leading: IconButton(
           icon: SvgPicture.asset('assets/images/logos/projectmark-icon.svg'),
           onPressed: () {
-            Scaffold.of(context).openDrawer();
+            _scaffoldKey.currentState?.openDrawer();
           },
         ),
         centerTitle: true,
@@ -116,51 +122,36 @@ class HomeView extends StatelessWidget {
                 ],
               ),
             ),
-            // ListTile(
-            //   leading: const Icon(Icons.settings),
-            //   title: Text(context.tr('settings')),
-            //   onTap: () {
-            //     // Handle settings tap
-            //   },
-            // ),
-            // ListTile(
-            //   leading: const Icon(Icons.info),
-            //   title: Text(context.tr('about')),
-            //   onTap: () {
-            //     // Handle about tap
-            //   },
-            // ),
           ],
         ),
       ),
-      //  Obx(() {
-      //   return ListView.builder(
-      //     itemCount: controller.cities.length,
-      //     itemBuilder: (context, index) {
-      //       City city = controller.cities[index];
-      //       Weather? weather = controller.weatherData[city.id];
-      //       return buildCityCard(city, weather);
-      //     },
-      //   );
-      // }),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              DefaultHomeHorizontalSpacing(),
-              CitiesHorizontalCarousel(),
-              DefaultHomeHorizontalSpacing(),
-
-              DefaultHomeSection(title: 'Today', child: Column(children: [
-                  
-                ],
-              )),
-              DefaultHomeSection(
-                title: 'Next 7 Days',
-                child: TemperatureAlongDayCarousel(),
-              ),
-            ],
+        child: RefreshIndicator(
+          color: AppTheme.primaryColor,
+          onRefresh: () async {
+            // Call the controller's method to refresh data
+            // await controller.refreshWeatherData();
+          },
+          child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                DefaultHomeHorizontalSpacing(),
+                CitiesHorizontalCarouselSlider(),
+                DefaultHomeHorizontalSpacing(),
+                DefaultHomeSection(
+                  title: 'Today',
+                  contentPadding: false,
+                  child: TemperatureAlongDayCarouselSlider(),
+                ),
+                DefaultHomeHorizontalSpacing(),
+                DefaultHomeSection(
+                  title: 'Next 7 Days',
+                  child: Column()
+                ),
+              ],
+            ),
           ),
         ),
       ),

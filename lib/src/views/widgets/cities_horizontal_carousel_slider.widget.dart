@@ -1,38 +1,47 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_map/src/core/constants/theme.dart';
+import 'package:weather_map/src/views/home_view.dart';
 import 'package:weather_map/src/views/widgets/cities_carousel_card.widget.dart';
 
-class CitiesHorizontalCarousel extends StatefulWidget {
-  const CitiesHorizontalCarousel({super.key});
+class CitiesHorizontalCarouselSlider extends StatefulWidget {
+  const CitiesHorizontalCarouselSlider({super.key});
 
   @override
-  CitiesHorizontalCarouselState createState() =>
-      CitiesHorizontalCarouselState();
+  CitiesHorizontalCarouselSliderState createState() =>
+      CitiesHorizontalCarouselSliderState();
 }
 
-class CitiesHorizontalCarouselState extends State<CitiesHorizontalCarousel> {
+class CitiesHorizontalCarouselSliderState extends State<CitiesHorizontalCarouselSlider> {
   int _currentIndex = 0;
   final CarouselSliderController _controller = CarouselSliderController();
 
   final List<Widget> _cards = [
-    CitiesCarouselCard(
-      location: 'New York',
-      temperature: '25°C',
-      humidity: '60%',
-      pressure: '1013 hPa',
+    Padding(
+      padding: EdgeInsets.only(left: kHomeDefaultSpacing),
+      child: CitiesCarouselCard(
+        location: 'New York',
+        temperature: 25,
+        humidity: 60,
+        pressure: 1012,
+      ),
     ),
     CitiesCarouselCard(
       location: 'Los Angeles',
-      temperature: '30°C',
-      humidity: '50%',
-      pressure: '1010 hPa',
+      temperature: 30,
+      humidity: 50,
+      pressure: 1010,
+      condition: WeatherCondition.scorching,
     ),
-    CitiesCarouselCard(
-      location: 'Chicago',
-      temperature: '20°C',
-      humidity: '70%',
-      pressure: '1015 hPa',
+    Padding(
+      padding: EdgeInsets.only(right: kHomeDefaultSpacing),
+      child: CitiesCarouselCard(
+        location: 'Chicago',
+        temperature: 20,
+        humidity: 70,
+        pressure: 1015,
+        condition: WeatherCondition.cloudy,
+      ),
     ),
   ];
 
@@ -46,6 +55,7 @@ class CitiesHorizontalCarouselState extends State<CitiesHorizontalCarousel> {
             height: 194,
             enableInfiniteScroll: false,
             disableCenter: true,
+            padEnds: false,
             onPageChanged: (index, reason) {
               setState(() {
                 _currentIndex = index;
