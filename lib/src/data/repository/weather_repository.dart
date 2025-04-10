@@ -1,17 +1,16 @@
 import 'package:dio/dio.dart';
 import 'package:weather_map/src/core/services/communicator/dio_client.dart';
-
-import '../../domain/models/weather.model.dart';
+import 'package:weather_map/src/domain/models/weather.model.dart';
 
 class WeatherRepository {
-  static const String _apiKey = 'YOUR_API_KEY';
-  static const String _baseUrl =
-      'https://api.openweathermap.org/data/2.5/weather';
+  static const String _apiKey = 'API_KEY';
+  static const String _baseUrl = 'https://api.openweathermap.org/data/2.5/weather';
 
-  // Use our DioClient abstraction.
-  static final DioClient _dioClient = DioClient();
+  final DioClient _dioClient;
 
-  static Future<WeatherModel?> fetchWeather({
+  WeatherRepository(this._dioClient);
+
+  Future<WeatherModel?> fetchWeatherFromServer({
     required String lat,
     required String lon,
   }) async {
@@ -25,17 +24,12 @@ class WeatherRepository {
           'units': 'metric',
         },
       );
-      // Check for success.
+
       if (response.statusCode == 200) {
-        // The response data is already a Map<String, dynamic>.
         return WeatherModel.fromJson(response.data);
-      } else {
-        // If the server did not return a 200 OK response,
-        // handle the error accordingly.
-        return null;
       }
-    } on DioException catch (e) {
-      // Handle DioError accordingly.
+      return null;
+    } on DioException {
       return null;
     }
   }

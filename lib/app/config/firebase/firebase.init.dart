@@ -10,7 +10,7 @@ import 'package:weather_map/app/config/flavors.dart';
 Future<void> initFirebase(MainAppEnvironment environment) async {
   try {
     await Firebase.initializeApp(
-      name: 'weather_map',
+      demoProjectId: '1:926425028744:web:9d4e9541b2c1ccd3daa73d',
       options: environment.firebaseOptions);
 
     if (!kDebugMode) {

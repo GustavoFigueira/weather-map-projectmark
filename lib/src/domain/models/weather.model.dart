@@ -1,6 +1,16 @@
-class WeatherModel {
+import 'package:hive/hive.dart';
+
+part 'weather.model.g.dart';
+
+@HiveType(typeId: 1)
+class WeatherModel extends HiveObject {
+  @HiveField(0)
   final double temperature;
+
+  @HiveField(1)
   final int humidity;
+
+  @HiveField(2)
   final int pressure;
 
   WeatherModel({

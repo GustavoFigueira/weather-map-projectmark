@@ -1,6 +1,6 @@
 name: weather_map
 description: "Weather Map App by ProjectMark"
-publish_to: 'none'
+publish_to: "none"
 version: 1.0.0+1
 
 environment:
@@ -40,6 +40,8 @@ dependencies:
   google_fonts: ^6.2.1
   # Local cache
   hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  hive_generator: ^2.0.1
   # Logging
   logger: ^2.5.0
 
@@ -58,7 +60,7 @@ dev_dependencies:
   # Environment variables
   flutter_flavorizr: ^2.3.0
   # Code generation
-  flutter_gen_runner: ^5.10.0
+  # flutter_gen_runner: ^5.10.0
   # Native launcher icons
   flutter_launcher_icons: ^0.14.3
   # Code quality and linting
@@ -67,6 +69,10 @@ dev_dependencies:
   mocktail: ^1.0.4
   # Sort pubspec.yaml dependencies
   pubspec_dependency_sorter: ^1.0.5
+
+dependency_overrides:
+  # Fix for Hive package
+  source_gen: ^2.0.0
 
 flavorizr:
   app:
@@ -110,15 +116,15 @@ flavorizr:
         # firebase:
         #   config: config/dev/firebase_app_id_file.json
 
-flutter_gen:
-  integrations:
-    flutter_svg: true
-  outputs:
-    class_name: WeatherMapAssets
-  assets:
-    exclude:
-      - .gitkeep
-      - assets/translations/**
+# flutter_gen:
+#   integrations:
+#     flutter_svg: true
+#   outputs:
+#     class_name: WeatherMapAssets
+#   assets:
+#     exclude:
+#       - .gitkeep
+#       - assets/translations/**
 
 flutter:
   generate: true
