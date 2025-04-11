@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:weather_map/src/core/helper/measuring_units.helper.dart';
-import 'package:weather_map/src/domain/models/next_days_weather.model.dart';
+import 'package:weather_map/src/core/constants/theme.dart';
+import 'package:weather_map/src/core/helpers/measuring_units.helper.dart';
+import 'package:weather_map/src/domain/models/daily_forecast.model.dart';
 import 'package:weather_map/src/presentation/global/state/global_manager.dart';
 import 'package:weather_map/src/presentation/global/widgets/weather_condition_icon.widget.dart';
 
@@ -15,7 +16,7 @@ class NextDaysWeatherTable extends StatefulWidget {
   });
 
   final bool loading;
-  final List<NextDaysWeatherModel> nextDaysWeather;
+  final List<DailyForecastModel> nextDaysWeather;
 
   @override
   NextDaysWeatherTableState createState() => NextDaysWeatherTableState();
@@ -27,7 +28,7 @@ class NextDaysWeatherTableState extends State<NextDaysWeatherTable> {
   @override
   void initState() {
     super.initState();
-    _animateWeekWeatherTiles();
+    Future.delayed(const Duration(milliseconds: 100), _animateWeekWeatherTiles);
   }
 
   /// Animates the week weather tiles with a staggered effect.
@@ -47,7 +48,22 @@ class NextDaysWeatherTableState extends State<NextDaysWeatherTable> {
   @override
   Widget build(BuildContext context) {
     if (widget.loading) {
-      return const Center(child: CircularProgressIndicator());
+      return SizedBox(
+        height: 300,
+        child: const Center(child: CircularProgressIndicator()),
+      );
+    }
+
+    if (widget.nextDaysWeather.isEmpty) {
+      return SizedBox(
+        height: 300,
+        child: Center(
+          child: Text(
+            'No data available',
+            style: TextStyle(color: AppTheme.primaryColor),
+          ),
+        ),
+      );
     }
 
     return Obx(
@@ -116,8 +132,7 @@ class NextDaysWeatherTableState extends State<NextDaysWeatherTable> {
                             ),
                             children: [
                               TextSpan(
-                                text:
-                                    weather.minTemperature.formatTemperature(),
+                                text: weather.minTemperature.formatDegrees(),
                                 style: TextStyle(
                                   fontFamily:
                                       GoogleFonts.archivo(

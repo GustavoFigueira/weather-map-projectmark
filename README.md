@@ -58,7 +58,7 @@ To get started with Weather Map, ensure you have the latest version of Flutter i
      - Use the `launch.json` configurations to select the desired environment (development, staging, or production).
      - Press `F5` to run.
      - Select the desired device (Android emulator, iOS simulator, or web browser).
-     - The recommendations is to run the Web project using any browser (e.g., Chrome, Edge, or Firefox) for the best experience.
+     - The recommendation is to run the Web project using any browser (e.g., Chrome, Edge, or Firefox) for the best experience.
      - Click the run button to launch the application in the browser.
    - **Using Android Studio**:
      - Open the project in Android Studio.
@@ -70,4 +70,35 @@ To get started with Weather Map, ensure you have the latest version of Flutter i
 - ✅ **Unit Tests**: Comprehensive unit tests to ensure the correctness of individual components and business logic.
 - 📱 **Widget Tests**: Ensuring UI components behave as expected under various scenarios.
 
----
+## 📂 Project Structure
+
+```
+weather_map
+├── android
+├── ios
+├── lib
+│   ├── app
+│   │   ├── config
+│   │   └── env
+│   ├── app.dart
+│   └── src
+│       ├── core
+│       │   ├── bindings
+│       │   ├── constants
+│       │   ├── helpers
+│       │   ├── routing
+│       │   └── services
+│       ├── data
+│       │   ├── constants
+│       │   └── repository
+│       ├── domain
+│       │   ├── enums
+│       │   ├── models
+│       │   └── usecases
+│       └── presentation
+│           ├── global
+│           └── home
+├── pubspec.yaml
+└── web
+```
+

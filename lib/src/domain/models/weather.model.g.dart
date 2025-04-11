@@ -25,13 +25,14 @@ class WeatherModelAdapter extends TypeAdapter<WeatherModel> {
       tempMax: fields[5] as double,
       windSpeed: fields[7] as double?,
       clouds: fields[8] as int?,
+      weather: fields[9] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, WeatherModel obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(9)
       ..writeByte(0)
       ..write(obj.temperature)
       ..writeByte(1)
@@ -47,7 +48,9 @@ class WeatherModelAdapter extends TypeAdapter<WeatherModel> {
       ..writeByte(7)
       ..write(obj.windSpeed)
       ..writeByte(8)
-      ..write(obj.clouds);
+      ..write(obj.clouds)
+      ..writeByte(9)
+      ..write(obj.weather);
   }
 
   @override

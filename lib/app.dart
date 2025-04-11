@@ -37,7 +37,13 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       // Enables click and drag with the mouse on scrollable widgets.
       scrollBehavior: const MaterialScrollBehavior().copyWith(
-        dragDevices: {PointerDeviceKind.mouse},
+        dragDevices: {
+          PointerDeviceKind.mouse,
+          PointerDeviceKind.touch,
+          PointerDeviceKind.stylus,
+          PointerDeviceKind.unknown,
+          PointerDeviceKind.trackpad,
+        },
       ),
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.lightTheme,
@@ -69,6 +75,9 @@ Future<void> mainApp({required MainAppEnvironment environment}) async {
           statusBarIconBrightness: Brightness.dark,
         ),
       );
+
+      // Set the current environment for the app.
+      GlobalManager().updateEnvironment(environment);
 
       // Initialize the default locale.
       initializeDateFormatting(GlobalManager().currentLocale);

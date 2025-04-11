@@ -10,7 +10,7 @@ class ServicesLoadingView extends StatelessWidget {
     textDirection: ui.TextDirection.ltr,
     child: ColoredBox(
       color: Color(0xFF1B3E67),
-      child: Center(child: CircularProgressIndicator()),
+      child: Center(child: CircularProgressIndicator(color: Colors.white)),
     ),
   );
 }

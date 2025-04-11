@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:weather_map/src/core/helper/measuring_units.helper.dart';
+import 'package:weather_map/src/core/helpers/measuring_units.helper.dart';
 import 'package:weather_map/src/domain/enums/weather_condition.enum.dart';
 import 'package:weather_map/src/presentation/global/widgets/weather_condition_icon.widget.dart';
 import 'package:weather_map/src/presentation/home/home.view.dart';
@@ -46,7 +46,7 @@ class DayHourTemperatureTileCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              time,
+              isCurrentHour ? 'Now' : time,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 14,

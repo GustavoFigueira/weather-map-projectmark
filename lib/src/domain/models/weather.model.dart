@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:weather_map/src/domain/enums/weather_condition.enum.dart';
 
 part 'weather.model.g.dart';
 
@@ -28,6 +29,9 @@ class WeatherModel extends HiveObject {
   @HiveField(8)
   final int? clouds;
 
+  @HiveField(9)
+  final String? weather;
+
   WeatherModel({
     required this.temperature,
     required this.humidity,
@@ -37,7 +41,21 @@ class WeatherModel extends HiveObject {
     required this.tempMax,
     this.windSpeed,
     this.clouds,
+    this.weather,
   });
+
+  WeatherCondition get condition {
+    switch (weather) {
+      case 'Clear':
+        return WeatherCondition.sunny;
+      case 'Clouds':
+        return WeatherCondition.cloudy;
+      case 'Rain':
+        return WeatherCondition.rainy;
+      default:
+        return WeatherCondition.clear;
+    }
+  }
 
   factory WeatherModel.fromJson(Map<String, dynamic> json) => WeatherModel(
     temperature: (json['main']['temp'] as num).toDouble(),
@@ -54,5 +72,11 @@ class WeatherModel extends HiveObject {
             ? (json['wind']['speed'] as num).toDouble()
             : null,
     clouds: json['clouds']?['all'] as int?,
+    weather:
+        json['weather'] != null
+            ? (json['weather'] as List).isNotEmpty
+                ? (json['weather'][0]['main'] as String)
+                : null
+            : null,
   );
 }
