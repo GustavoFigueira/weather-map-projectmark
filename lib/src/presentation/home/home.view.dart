@@ -73,6 +73,14 @@ class HomeView extends StatelessWidget {
                                 getx.Get.find<GlobalManager>().loading.value,
                             useFakeData:
                                 getx.Get.find<GlobalManager>().fakeData.value,
+                            startIndex:
+                                getx.Get.find<GlobalManager>().currentCity !=
+                                        null
+                                    ? controller.cities.indexOf(
+                                      getx.Get.find<GlobalManager>()
+                                          .currentCity!,
+                                    )
+                                    : 0,
                             citiesWeatherData: controller.citiesWeatherData,
                             onCitySelected: controller.updateSelectedCity,
                           ),
@@ -105,9 +113,7 @@ class HomeView extends StatelessWidget {
                 child: ColoredBox(
                   color: AppTheme.primaryColor.withValues(alpha: 0.7),
                   child: const Center(
-                    child: CircularProgressIndicator(
-                      color: Colors.white,
-                    ),
+                    child: CircularProgressIndicator(color: Colors.white),
                   ),
                 ),
               ),

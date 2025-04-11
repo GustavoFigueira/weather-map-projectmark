@@ -36,12 +36,14 @@ class CitiesHorizontalCarouselSlider extends StatefulWidget {
   const CitiesHorizontalCarouselSlider({
     super.key,
     required this.citiesWeatherData,
+    this.startIndex = 0,
     this.loading = false,
     this.useFakeData = false,
     this.onCitySelected,
   });
 
   final Map<CityModel, WeatherModel?> citiesWeatherData;
+  final int startIndex;
   final bool loading;
   final bool useFakeData;
   final void Function(int index)? onCitySelected;
@@ -53,14 +55,14 @@ class CitiesHorizontalCarouselSlider extends StatefulWidget {
 
 class CitiesHorizontalCarouselSliderState
     extends State<CitiesHorizontalCarouselSlider> {
-  int _currentIndex = 0;
   final _controller = CarouselSliderController();
 
   @override
   Widget build(BuildContext context) {
     if (widget.loading) {
-      return const Center(
-        child: CircularProgressIndicator(color: AppTheme.primaryColor),
+      return SizedBox(
+        height: 194,
+        child: const Center(child: CircularProgressIndicator()),
       );
     }
 
@@ -98,16 +100,15 @@ class CitiesHorizontalCarouselSliderState
       children: [
         CarouselSlider(
           items: cards,
+          carouselController: _controller,
           options: CarouselOptions(
             height: 194,
+            initialPage: widget.startIndex,
             enableInfiniteScroll: false,
             disableCenter: true,
             padEnds: false,
             onPageChanged: (index, reason) {
               widget.onCitySelected?.call(index);
-              setState(() {
-                _currentIndex = index;
-              });
             },
           ),
         ),
@@ -128,7 +129,7 @@ class CitiesHorizontalCarouselSliderState
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           color:
-                              _currentIndex == entry.key
+                              widget.startIndex == entry.key
                                   ? AppTheme.primaryColor
                                   : AppTheme.accentColor,
                         ),
