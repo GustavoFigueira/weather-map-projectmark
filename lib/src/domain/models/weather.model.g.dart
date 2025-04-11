@@ -23,16 +23,15 @@ class WeatherModelAdapter extends TypeAdapter<WeatherModel> {
       feelsLike: fields[3] as double,
       tempMin: fields[4] as double,
       tempMax: fields[5] as double,
-      visibility: fields[6] as int,
-      windSpeed: fields[7] as double,
-      clouds: fields[8] as int,
+      windSpeed: fields[7] as double?,
+      clouds: fields[8] as int?,
     );
   }
 
   @override
   void write(BinaryWriter writer, WeatherModel obj) {
     writer
-      ..writeByte(9)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.temperature)
       ..writeByte(1)
@@ -45,8 +44,6 @@ class WeatherModelAdapter extends TypeAdapter<WeatherModel> {
       ..write(obj.tempMin)
       ..writeByte(5)
       ..write(obj.tempMax)
-      ..writeByte(6)
-      ..write(obj.visibility)
       ..writeByte(7)
       ..write(obj.windSpeed)
       ..writeByte(8)

@@ -15,6 +15,7 @@ class GlobalManager {
   final _currentLocale = Rxn<String>(kDefaultLocale.languageCode);
   final loading = true.obs;
   final temperatureUnit = Rxn<TemperatureUnits>(TemperatureUnits.celsius);
+  final fakeData = false.obs;
 
   CityModel? get currentCity => _currentCity.value;
   MainAppEnvironment? get environment => _environment.value;
@@ -35,5 +36,9 @@ class GlobalManager {
   void updateCurrentLocale(String? locale) {
     locale ??= kDefaultLocale.languageCode;
     _currentLocale.value = locale;
+  }
+
+  void updateFakeData({bool value = false}) {
+    fakeData.value = value;
   }
 }

@@ -1,20 +1,49 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_map/src/core/constants/theme.dart';
+import 'package:weather_map/src/data/constants/default_cities.dart';
 import 'package:weather_map/src/domain/models/city.model.dart';
+import 'package:weather_map/src/domain/models/weather.model.dart';
 import 'package:weather_map/src/presentation/home/home.view.dart';
 import 'package:weather_map/src/presentation/home/widgets/cities_carousel_card.widget.dart';
+
+/// Fake data to simulate the Figma design.
+final Map<CityModel, WeatherModel?> _fakeData = {
+  kDefaultAppCities[0]: WeatherModel(
+    temperature: 4,
+    humidity: 87,
+    pressure: 1016,
+    tempMin: 0,
+    tempMax: 10,
+  ),
+  kDefaultAppCities[1]: WeatherModel(
+    temperature: 43,
+    humidity: 15,
+    pressure: 1010,
+    tempMin: 0,
+    tempMax: 44,
+  ),
+  kDefaultAppCities[2]: WeatherModel(
+    temperature: 10,
+    humidity: 85,
+    pressure: 1013,
+    tempMin: 0,
+    tempMax: 20,
+  ),
+};
 
 class CitiesHorizontalCarouselSlider extends StatefulWidget {
   const CitiesHorizontalCarouselSlider({
     super.key,
-    required this.cities,
+    required this.citiesWeatherData,
     this.loading = false,
+    this.useFakeData = false,
     this.onCitySelected,
   });
 
-  final List<CityModel> cities;
+  final Map<CityModel, WeatherModel?> citiesWeatherData;
   final bool loading;
+  final bool useFakeData;
   final void Function(int index)? onCitySelected;
 
   @override
@@ -28,11 +57,6 @@ class CitiesHorizontalCarouselSliderState
   final _controller = CarouselSliderController();
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     if (widget.loading) {
       return const Center(
@@ -40,7 +64,7 @@ class CitiesHorizontalCarouselSliderState
       );
     }
 
-    if (widget.cities.isEmpty) {
+    if (widget.citiesWeatherData.isEmpty) {
       return const Center(
         child: Text(
           'No cities available',
@@ -50,21 +74,21 @@ class CitiesHorizontalCarouselSliderState
       );
     }
 
+    final dataEntries =
+        widget.useFakeData
+            ? _fakeData.entries
+            : widget.citiesWeatherData.entries;
+
     final cards =
-        widget.cities
+        dataEntries
             .map(
-              (city) => Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: kHomeDefaultSpacing / 2,
-                ),
+              (entry) => Padding(
+                padding: const EdgeInsets.only(left: kHomeDefaultSpacing),
                 child: CitiesCarouselCard(
-                  location: city,
-                  temperature: 45,
-                  humidity: 60,
-                  pressure: 1013,
-                  // temperature: city.temperature,
-                  // humidity: city.humidity,
-                  // pressure: city.pressure,
+                  location: entry.key,
+                  temperature: entry.value?.temperature ?? 0,
+                  humidity: entry.value?.humidity,
+                  pressure: entry.value?.pressure,
                 ),
               ),
             )

@@ -13,8 +13,7 @@ class DailyForecastModel {
     required this.condition,
   });
 
-  factory DailyForecastModel.fromJson(Map<String, dynamic> json) {
-    return DailyForecastModel(
+  factory DailyForecastModel.fromJson(Map<String, dynamic> json) => DailyForecastModel(
       date: DateTime.fromMillisecondsSinceEpoch(json['dt'] * 1000),
       minTemperature: (json['temp']['min'] as num).toDouble(),
       maxTemperature: (json['temp']['max'] as num).toDouble(),
@@ -23,5 +22,4 @@ class DailyForecastModel {
         orElse: () => WeatherCondition.clear,
       ),
     );
-  }
 }

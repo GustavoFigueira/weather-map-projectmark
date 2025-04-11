@@ -12,6 +12,8 @@ dependencies:
   carousel_slider: ^5.0.0
   # Logs and erros capture
   catcher_2: ^2.1.2
+  # Device preview
+  device_preview: ^1.2.0
   # Http client
   dio: ^5.8.0+1
   # Improve web platform URL routes
@@ -75,6 +77,8 @@ dev_dependencies:
   pubspec_dependency_sorter: ^1.0.5
 
 dependency_overrides:
+  # Code generation
+  freezed_annotation: ^3.0.0
   # Internationalization
   intl: ^0.20.2
   # Fix for Hive package

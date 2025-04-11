@@ -6,15 +6,14 @@ import 'package:hive/hive.dart';
 import 'package:logger/logger.dart';
 import 'package:weather_map/src/data/constants/default_cities.dart';
 import 'package:weather_map/src/domain/enums/weather_condition.enum.dart';
-
 import 'package:weather_map/src/domain/models/city.model.dart';
 import 'package:weather_map/src/domain/models/city_weather.model.dart';
+import 'package:weather_map/src/domain/models/daily_forecast.model.dart';
 import 'package:weather_map/src/domain/models/day_hour_weather.model.dart';
 import 'package:weather_map/src/domain/models/next_days_weather.model.dart';
 import 'package:weather_map/src/domain/models/weather.model.dart';
 import 'package:weather_map/src/domain/usecases/weather.usecase.dart';
 import 'package:weather_map/src/presentation/global/state/global_manager.dart';
-import 'package:weather_map/src/domain/models/daily_forecast.model.dart';
 
 class HomeViewModel extends GetxController {
   HomeViewModel(this.fetchWeatherUseCase);
@@ -25,7 +24,7 @@ class HomeViewModel extends GetxController {
   Timer? _refreshTimer;
 
   final cities = <CityModel>[].obs;
-  final weatherData = <int, WeatherModel?>{}.obs;
+  final citiesWeatherData = <CityModel, WeatherModel?>{}.obs;
   final forecastData = <DailyForecastModel>[].obs;
   final loadingCities = false.obs;
   final loadingWeather = false.obs;
@@ -138,7 +137,7 @@ class HomeViewModel extends GetxController {
     try {
       loadingWeather.value = true;
       final weatherDataMap = await fetchWeatherUseCase(cities);
-      weatherData.assignAll(weatherDataMap);
+      citiesWeatherData.assignAll(weatherDataMap);
       await saveLastUpdated();
     } catch (e) {
       Logger().e('Error fetching weather data: $e');
@@ -160,7 +159,7 @@ class HomeViewModel extends GetxController {
 
       // Fetch weather data for the current city
       final weatherData = await fetchWeatherUseCase([currentCity]);
-      final weather = weatherData[currentCity.id];
+      final weather = weatherData[currentCity];
 
       if (weather != null) {
         final cityWeather = CityWeatherModel(
@@ -195,11 +194,12 @@ class HomeViewModel extends GetxController {
       }
 
       // Fetch forecast data for the current city
-      final forecast = await fetchWeatherUseCase.weatherRepository.fetchForecastFromServer(
-        lat: currentCity.lat,
-        lon: currentCity.long,
-        unit: GlobalManager().temperatureUnit.value,
-      );
+      final forecast = await fetchWeatherUseCase.weatherRepository
+          .fetchForecastFromServer(
+            lat: currentCity.lat,
+            lon: currentCity.long,
+            unit: GlobalManager().temperatureUnit.value,
+          );
 
       if (forecast != null) {
         forecastData.assignAll(forecast);

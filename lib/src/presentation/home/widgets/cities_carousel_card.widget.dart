@@ -19,8 +19,8 @@ class CitiesCarouselCard extends StatelessWidget {
 
   final CityModel location;
   final double temperature;
-  final double? humidity;
-  final double? pressure;
+  final int? humidity;
+  final int? pressure;
 
   /// The weather condition of the city for different colors schemes.
   /// [Disclaimer]: This is a requirement from the Code Challenge itself:
@@ -163,7 +163,7 @@ class CitiesCarouselCard extends StatelessWidget {
               colors: [
                 Color(0xFFF6AD55),
                 Color(0xFF74C4DE),
-                Color(0xFF74C4DE).withOpacity(0),
+                Color(0xFF74C4DE).withValues(alpha: 0),
               ],
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,

@@ -74,9 +74,28 @@ class _MenuDrawerState extends State<MenuDrawer> {
               Get.find<GlobalManager>().updateTemperatureUnit(
                 value ? TemperatureUnits.celsius : TemperatureUnits.fahrenheit,
               );
+              Get.find<HomeViewModel>().initializeData();
             });
           },
           secondary: const Icon(Icons.thermostat, color: Colors.red),
+        ),
+        const Divider(),
+        SwitchListTile(
+          title: const Text(
+            'Fake Data',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+          ),
+          subtitle: Text(
+            GlobalManager().fakeData.value ? 'Enabled' : 'Disabled',
+            style: const TextStyle(fontSize: 14),
+          ),
+          value: GlobalManager().fakeData.value,
+          onChanged: (option) {
+            setState(() {
+              Get.find<GlobalManager>().updateFakeData(value: option);
+            });
+          },
+          secondary: const Icon(Icons.data_usage, color: Colors.blue),
         ),
         const Divider(),
         ListTile(

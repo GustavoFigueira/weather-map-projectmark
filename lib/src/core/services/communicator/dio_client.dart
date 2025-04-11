@@ -25,9 +25,7 @@ class DioClient {
         _environment.baseUrl.toString() + endpoint,
         queryParameters: {
           ...?queryParameters,
-          // TODO: rollback
           'appid': _environment.openWeatherMapApiKey,
-          //'appid': 'APP_KEY',
         },
       );
       return response;
