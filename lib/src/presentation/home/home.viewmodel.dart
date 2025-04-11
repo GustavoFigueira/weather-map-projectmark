@@ -253,6 +253,7 @@ class HomeViewModel extends GetxController {
       await Future.delayed(const Duration(milliseconds: 500));
       if (index >= 0 && index < cities.length) {
         GlobalManager().updateCurrentCity(cities[index]);
+        refreshData();
       }
     } finally {
       GlobalManager().loading.value = false;

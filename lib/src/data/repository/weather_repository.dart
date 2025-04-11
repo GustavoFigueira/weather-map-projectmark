@@ -67,6 +67,7 @@ class WeatherRepository {
     required String lat,
     required String lon,
     TemperatureUnits? unit = TemperatureUnits.celsius,
+    int timeSpan = 8,
   }) async {
     try {
       final response = await _dioClient.get(
@@ -75,7 +76,7 @@ class WeatherRepository {
           'lat': lat,
           'lon': lon,
           'units': unit == TemperatureUnits.celsius ? 'metric' : 'imperial',
-          'cnt': 24,
+          'cnt': timeSpan,
         },
       );
 
