@@ -15,14 +15,14 @@ android.apply {
         }
         create("staging") {
             dimension = "app"
-            applicationId = "com.projectmark.staging.weather_map"
+            applicationId = "com.projectmark.weather_map"
             versionCode = flutter.versionCode.toInteger()
             versionName = flutter.versionName
             resValue(type = "string", name = "app_name", value = "Weather Map staging")
         }
         create("dev") {
             dimension = "app"
-            applicationId = "com.projectmark.dev.weather_map"
+            applicationId = "com.projectmark.weather_map"
             versionCode = flutter.versionCode.toInteger()
             versionName = flutter.versionName
             resValue(type = "string", name = "app_name", value = "Weather Map dev")

@@ -5,28 +5,29 @@
       "name": "Run LOCALHOST",
       "program": "${workspaceRoot}\\lib\\app\\dev.dart",
       "request": "launch",
-      "type": "dart"
+      "type": "dart",
+      "args": ["--flavor", "dev"]
     },
     {
       "name": "Run DEV",
       "program": "${workspaceRoot}\\lib\\app\\dev.dart",
       "request": "launch",
-      "type": "dart"
+      "type": "dart",
+      "args": ["--flavor", "dev"]
     },
     {
       "name": "Run STAGING",
       "program": "${workspaceRoot}\\lib\\app\\staging.dart",
       "request": "launch",
-      "type": "dart"
+      "type": "dart",
+      "args": ["--flavor", "staging"]
     },
     {
       "name": "Run PROD",
       "program": "${workspaceRoot}\\lib\\app\\prod.dart",
       "request": "launch",
       "type": "dart",
-      "args": [
-        "--release"
-      ]
+      "args": ["--flavor", "prod", "--release"]
     }
   ]
 }

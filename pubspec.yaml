@@ -103,7 +103,7 @@ flavorizr:
       app:
         name: "Weather Map staging"
       android:
-        applicationId: "com.projectmark.staging.weather_map"
+        applicationId: "com.projectmark.weather_map"
         customConfig:
           versionCode: flutterVersionCode.toInteger()
           versionName: flutterVersionName
@@ -112,7 +112,7 @@ flavorizr:
       app:
         name: "Weather Map dev"
       android:
-        applicationId: "com.projectmark.dev.weather_map"
+        applicationId: "com.projectmark.weather_map"
         customConfig:
           versionCode: flutterVersionCode.toInteger()
           versionName: flutterVersionName
