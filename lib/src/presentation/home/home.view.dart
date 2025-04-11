@@ -101,7 +101,16 @@ class HomeView extends StatelessWidget {
               ),
             ),
             if (GlobalManager().loading.value) ...[
-              const Center(child: CircularProgressIndicator()),
+              Positioned.fill(
+                child: ColoredBox(
+                  color: AppTheme.primaryColor.withValues(alpha: 0.7),
+                  child: const Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
             ],
           ],
         ),

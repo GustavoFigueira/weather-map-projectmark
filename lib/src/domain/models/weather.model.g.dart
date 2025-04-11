@@ -20,7 +20,7 @@ class WeatherModelAdapter extends TypeAdapter<WeatherModel> {
       temperature: fields[0] as double,
       humidity: fields[1] as int,
       pressure: fields[2] as int,
-      feelsLike: fields[3] as double,
+      feelsLike: fields[3] as double?,
       tempMin: fields[4] as double,
       tempMax: fields[5] as double,
       windSpeed: fields[7] as double?,

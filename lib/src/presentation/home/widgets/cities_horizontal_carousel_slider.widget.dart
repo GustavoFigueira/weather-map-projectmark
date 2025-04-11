@@ -104,10 +104,10 @@ class CitiesHorizontalCarouselSliderState
             disableCenter: true,
             padEnds: false,
             onPageChanged: (index, reason) {
+              widget.onCitySelected?.call(index);
               setState(() {
                 _currentIndex = index;
               });
-              widget.onCitySelected?.call(index);
             },
           ),
         ),
