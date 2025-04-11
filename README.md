@@ -25,15 +25,13 @@ The idea is not to use boilerplate code and overengineering, but rather to use a
 - 🎨 **Micro Interactions and UX Improvements**: Enhanced user experience with subtle animations and interactions.
 - 🚀 **Native Splash Screen and Launcher Icons**: Custom splash screen and launcher icons for a polished look.
 
----
-
 ## 🌐 Live Preview
 
 Check out the live preview of the Weather Map application:
 
 ![Live Preview](docs/live-preview.gif)
 
-[🌐 Visit the Live Website](https://weather-map-projectmark.web.app/)
+[👆🌐 Visit the Live Website](https://weather-map-projectmark.web.app/)
 
 ---
 
@@ -61,7 +59,17 @@ To get started with Weather Map, ensure you have the latest version of Flutter i
      - Open the project in VS Code.
      - Use the `launch.json` configurations to select the desired environment (development, staging, or production).
      - Press `F5` to run.
+     - Select the desired device (Android emulator, iOS simulator, or web browser).
+     - The recommendations is to run the Web project using any browser (e.g., Chrome, Edge, or Firefox) for the best experience.
+     - Click the run button to launch the application in the browser.
    - **Using Android Studio**:
      - Open the project in Android Studio.
      - Use the run presets to select the desired environment.
      - Click on the run button.
+
+## 🧪 Implemented Tests
+
+- ✅ **Unit Tests**: Comprehensive unit tests to ensure the correctness of individual components and business logic.
+- 📱 **Widget Tests**: Ensuring UI components behave as expected under various scenarios.
+
+---
