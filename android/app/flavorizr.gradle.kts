@@ -9,22 +9,22 @@ android.apply {
         create("prod") {
             dimension = "app"
             applicationId = "com.projectmark.weather_map"
-            versionCode = flutterVersionCode.toInteger()
-            versionName = flutterVersionName
+            versionCode = flutter.versionCode.toInteger()
+            versionName = flutter.versionName
             resValue(type = "string", name = "app_name", value = "Weather Map")
         }
         create("staging") {
             dimension = "app"
             applicationId = "com.projectmark.staging.weather_map"
-            versionCode = flutterVersionCode.toInteger()
-            versionName = flutterVersionName
+            versionCode = flutter.versionCode.toInteger()
+            versionName = flutter.versionName
             resValue(type = "string", name = "app_name", value = "Weather Map staging")
         }
         create("dev") {
             dimension = "app"
             applicationId = "com.projectmark.dev.weather_map"
-            versionCode = flutterVersionCode.toInteger()
-            versionName = flutterVersionName
+            versionCode = flutter.versionCode.toInteger()
+            versionName = flutter.versionName
             resValue(type = "string", name = "app_name", value = "Weather Map dev")
         }
     }

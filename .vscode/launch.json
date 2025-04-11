@@ -3,7 +3,7 @@
   "configurations": [
     {
       "name": "Run LOCALHOST",
-      "program": "${workspaceRoot}\\lib\\app\\localhost.dart",
+      "program": "${workspaceRoot}\\lib\\app\\dev.dart",
       "request": "launch",
       "type": "dart"
     },
@@ -25,7 +25,7 @@
       "request": "launch",
       "type": "dart",
       "args": [
-        "--release",
+        "--release"
       ]
     }
   ]
