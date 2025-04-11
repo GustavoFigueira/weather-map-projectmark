@@ -27,11 +27,9 @@ The idea is not to use boilerplate code and overengineering, but rather to use a
 
 ## 🌐 Live Preview
 
-Check out the live preview of the Weather Map application:
+Check out the live preview of the Weather Map application: [👉💻 Visit the Live Website](https://weather-map-projectmark.web.app/)
 
 ![Live Preview](docs/live-preview.gif)
-
-[👆🌐 Visit the Live Website](https://weather-map-projectmark.web.app/)
 
 ---
 
