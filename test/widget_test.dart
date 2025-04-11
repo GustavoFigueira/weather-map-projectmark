@@ -11,7 +11,7 @@ import 'package:get/get.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:weather_map/src/core/services/communicator/dio_client.dart';
 import 'package:weather_map/src/data/repository/weather_repository.dart';
-import 'package:weather_map/src/domain/usecases/weather.usecase.dart';
+import 'package:weather_map/src/domain/usecases/fetch_city_weather.usecase.dart';
 import 'package:weather_map/src/presentation/global/state/global_manager.dart';
 import 'package:weather_map/src/presentation/global/widgets/menu_drawer.widget.dart';
 import 'package:weather_map/src/presentation/home/home.viewmodel.dart';
@@ -23,7 +23,7 @@ class MockDioClient extends Mock implements DioClient {}
 
 class MockWeatherRepository extends Mock implements WeatherRepository {}
 
-class MockFetchWeatherUseCase extends Mock implements FetchWeatherUseCase {}
+class MockFetchWeatherUseCase extends Mock implements FetchCityWeatherUseCase {}
 
 class MockHomeViewModel extends Mock implements HomeViewModel {}
 
@@ -38,7 +38,7 @@ void main() {
       ..put<GlobalManager>(MockGlobalManager())
       ..lazyPut<DioClient>(MockDioClient.new)
       ..lazyPut<WeatherRepository>(MockWeatherRepository.new)
-      ..lazyPut<FetchWeatherUseCase>(MockFetchWeatherUseCase.new)
+      ..lazyPut<FetchCityWeatherUseCase>(MockFetchWeatherUseCase.new)
       ..put<HomeViewModel>(MockHomeViewModel());
 
     // Build the MenuDrawer widget

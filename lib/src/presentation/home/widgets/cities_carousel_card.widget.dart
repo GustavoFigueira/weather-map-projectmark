@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:weather_map/src/core/helper/measuring_units.helper.dart';
+import 'package:weather_map/src/core/helpers/measuring_units.helper.dart';
 import 'package:weather_map/src/domain/enums/weather_condition.enum.dart';
 import 'package:weather_map/src/domain/models/city.model.dart';
 

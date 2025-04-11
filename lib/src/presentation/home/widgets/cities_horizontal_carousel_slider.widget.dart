@@ -35,6 +35,7 @@ final Map<CityModel, WeatherModel?> _fakeData = {
 class CitiesHorizontalCarouselSlider extends StatefulWidget {
   const CitiesHorizontalCarouselSlider({
     super.key,
+    required this.cities,
     required this.citiesWeatherData,
     this.startIndex = 0,
     this.loading = false,
@@ -42,6 +43,7 @@ class CitiesHorizontalCarouselSlider extends StatefulWidget {
     this.onCitySelected,
   });
 
+  final List<CityModel> cities;
   final Map<CityModel, WeatherModel?> citiesWeatherData;
   final int startIndex;
   final bool loading;

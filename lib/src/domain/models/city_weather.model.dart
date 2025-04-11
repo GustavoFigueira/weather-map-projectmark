@@ -1,6 +1,6 @@
 import 'package:weather_map/src/domain/models/city.model.dart';
+import 'package:weather_map/src/domain/models/daily_forecast.model.dart';
 import 'package:weather_map/src/domain/models/day_hour_weather.model.dart';
-import 'package:weather_map/src/domain/models/next_days_weather.model.dart';
 
 class CityWeatherModel {
   final CityModel city;
@@ -13,7 +13,7 @@ class CityWeatherModel {
   final int? timezone;
 
   final List<DayHourWeatherModel> hourlyTemperatures;
-  final List<NextDaysWeatherModel> dailyTemperatures;
+  final List<DailyForecastModel> dailyTemperatures;
 
   CityWeatherModel({
     required this.city,

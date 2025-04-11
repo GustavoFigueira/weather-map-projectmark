@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:weather_map/src/core/constants/theme.dart';
 import 'package:weather_map/src/domain/models/day_hour_weather.model.dart';
 import 'package:weather_map/src/presentation/global/state/global_manager.dart';
 import 'package:weather_map/src/presentation/home/widgets/day_hour_temperature_tile_card.widget.dart';
@@ -17,7 +18,22 @@ class TemperatureAlongDayCarouselSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (loading) {
-      return const Center(child: CircularProgressIndicator());
+      return SizedBox(
+        height: 118,
+        child: const Center(child: CircularProgressIndicator()),
+      );
+    }
+
+    if (nextHoursWeather.isEmpty) {
+      return SizedBox(
+        height: 118,
+        child: Center(
+          child: Text(
+            'No data available',
+            style: TextStyle(color: AppTheme.primaryColor),
+          ),
+        ),
+      );
     }
 
     return SizedBox(

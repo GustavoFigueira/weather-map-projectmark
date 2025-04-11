@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="UAT" type="FlutterRunConfigurationType" factoryName="Flutter">
-    <option name="buildFlavor" value="uat" />
-    <option name="filePath" value="$PROJECT_DIR$/lib/app/uat.dart" />
+  <configuration default="false" name="STAGING" type="FlutterRunConfigurationType" factoryName="Flutter">
+    <option name="buildFlavor" value="staging" />
+    <option name="filePath" value="$PROJECT_DIR$/lib/app/staging.dart" />
     <method v="2" />
   </configuration>
 </component>
