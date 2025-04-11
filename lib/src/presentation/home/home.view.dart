@@ -57,7 +57,7 @@ class HomeView extends StatelessWidget {
                 child: RefreshIndicator(
                   color: AppTheme.primaryColor,
                   backgroundColor: Colors.white,
-                  onRefresh: controller.initializeData,
+                  onRefresh: controller.refreshData,
                   child: SingleChildScrollView(
                     physics: const AlwaysScrollableScrollPhysics(),
                     child: Padding(
@@ -68,9 +68,7 @@ class HomeView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CitiesHorizontalCarouselSlider(
-                            loading:
-                                controller.loadingCities.value ||
-                                getx.Get.find<GlobalManager>().loading.value,
+                            loading: controller.loadingCities.value,
                             useFakeData:
                                 getx.Get.find<GlobalManager>().fakeData.value,
                             startIndex:
@@ -81,6 +79,7 @@ class HomeView extends StatelessWidget {
                                           .currentCity!,
                                     )
                                     : 0,
+                            cities: controller.cities,
                             citiesWeatherData: controller.citiesWeatherData,
                             onCitySelected: controller.updateSelectedCity,
                           ),
@@ -98,7 +97,7 @@ class HomeView extends StatelessWidget {
                             title: 'Next 7 days',
                             child: NextDaysWeatherTable(
                               loading: controller.loadingWeather.value,
-                              nextDaysWeather: controller.nextDaysWeather,
+                              nextDaysWeather: controller.dailyForecastData,
                             ),
                           ),
                         ],

@@ -6,13 +6,13 @@ extension TemperatureFormatting on double {
   String formatTemperature() {
     final unit = Get.find<GlobalManager>().temperatureUnit.value;
     if (unit == TemperatureUnits.celsius) {
-      return '${toStringAsFixed(1)} °C';
+      return '${toStringAsFixed(0)} °C';
     } else if (unit == TemperatureUnits.fahrenheit) {
-      return '${toStringAsFixed(1)} °F';
+      return '${toStringAsFixed(0)} °F';
     } else {
       throw Exception('Unsupported temperature unit');
     }
   }
 
-  String formatDegrees() => '${toStringAsFixed(1)}°';
+  String formatDegrees() => '${toStringAsFixed(0)}°';
 }
