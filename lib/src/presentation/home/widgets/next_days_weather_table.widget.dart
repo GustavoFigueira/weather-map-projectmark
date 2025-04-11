@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:weather_map/src/core/helper/measuring_units.helper.dart';
 import 'package:weather_map/src/domain/models/next_days_weather.model.dart';
+import 'package:weather_map/src/presentation/global/state/global_manager.dart';
 import 'package:weather_map/src/presentation/global/widgets/weather_condition_icon.widget.dart';
 
 class NextDaysWeatherTable extends StatefulWidget {
@@ -47,94 +50,101 @@ class NextDaysWeatherTableState extends State<NextDaysWeatherTable> {
       return const Center(child: CircularProgressIndicator());
     }
 
-    return Table(
-      columnWidths: const {
-        0: FlexColumnWidth(3),
-        1: FlexColumnWidth(),
-        2: FlexColumnWidth(3),
-      },
-      children:
-          widget.nextDaysWeather.asMap().entries.map((entry) {
-            final index = entry.key;
-            final weather = entry.value;
+    return Obx(
+      () => Table(
+        columnWidths: const {
+          0: FlexColumnWidth(3),
+          1: FlexColumnWidth(),
+          2: FlexColumnWidth(3),
+        },
+        children:
+            widget.nextDaysWeather.asMap().entries.map((entry) {
+              final index = entry.key;
+              final weather = entry.value;
 
-            return TableRow(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 17.0),
-                  child: FadeTransition(
-                    opacity: AlwaysStoppedAnimation(_opacityValues[index]),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Text(
-                        toBeginningOfSentenceCase(
-                          DateFormat.EEEE().format(
-                            DateTime.now().add(Duration(days: index + 1)),
+              return TableRow(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 17.0),
+                    child: FadeTransition(
+                      opacity: AlwaysStoppedAnimation(_opacityValues[index]),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Text(
+                          toBeginningOfSentenceCase(
+                            DateFormat.EEEE(
+                              GlobalManager().currentLocale,
+                            ).format(
+                              DateTime.now().add(Duration(days: index + 1)),
+                            ),
                           ),
-                        ),
-                        style: TextStyle(
-                          fontSize: 17,
-                          color: const Color(0xFF718096),
-                          fontFamily:
-                              GoogleFonts.archivo(
-                                fontWeight: FontWeight.w500,
-                              ).fontFamily,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 17.0),
-                  child: FadeTransition(
-                    opacity: AlwaysStoppedAnimation(_opacityValues[index]),
-                    child: Center(
-                      child: WeatherConditionIcon(condition: weather.condition),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 17.0),
-                  child: FadeTransition(
-                    opacity: AlwaysStoppedAnimation(_opacityValues[index]),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: RichText(
-                        textAlign: TextAlign.right,
-                        text: TextSpan(
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 17,
-                            color: Color(0xFF718096),
+                            color: const Color(0xFF718096),
+                            fontFamily:
+                                GoogleFonts.archivo(
+                                  fontWeight: FontWeight.w500,
+                                ).fontFamily,
                           ),
-                          children: [
-                            TextSpan(
-                              text: '${weather.minTemperature}°C',
-                              style: TextStyle(
-                                fontFamily:
-                                    GoogleFonts.archivo(
-                                      fontWeight: FontWeight.w500,
-                                    ).fontFamily,
-                              ),
-                            ),
-                            const TextSpan(text: ' / '),
-                            TextSpan(
-                              text: '${weather.maxTemperature}°',
-                              style: TextStyle(
-                                fontFamily:
-                                    GoogleFonts.archivo(
-                                      fontWeight: FontWeight.w700,
-                                    ).fontFamily,
-                              ),
-                            ),
-                          ],
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            );
-          }).toList(),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 17.0),
+                    child: FadeTransition(
+                      opacity: AlwaysStoppedAnimation(_opacityValues[index]),
+                      child: Center(
+                        child: WeatherConditionIcon(
+                          condition: weather.condition,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 17.0),
+                    child: FadeTransition(
+                      opacity: AlwaysStoppedAnimation(_opacityValues[index]),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: RichText(
+                          textAlign: TextAlign.right,
+                          text: TextSpan(
+                            style: const TextStyle(
+                              fontSize: 17,
+                              color: Color(0xFF718096),
+                            ),
+                            children: [
+                              TextSpan(
+                                text:
+                                    weather.minTemperature.formatTemperature(),
+                                style: TextStyle(
+                                  fontFamily:
+                                      GoogleFonts.archivo(
+                                        fontWeight: FontWeight.w500,
+                                      ).fontFamily,
+                                ),
+                              ),
+                              const TextSpan(text: ' / '),
+                              TextSpan(
+                                text: weather.maxTemperature.formatDegrees(),
+                                style: TextStyle(
+                                  fontFamily:
+                                      GoogleFonts.archivo(
+                                        fontWeight: FontWeight.w700,
+                                      ).fontFamily,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            }).toList(),
+      ),
     );
   }
 }

@@ -1,7 +1,7 @@
 name: weather_map
 description: "Weather Map App by ProjectMark"
 publish_to: "none"
-version: 1.0.0+2
+version: 1.0.1+3
 
 environment:
   sdk: ^3.7.2
@@ -93,10 +93,7 @@ flavorizr:
         customConfig:
           versionCode: flutterVersionCode.toInteger()
           versionName: flutterVersionName
-      ios:
-        bundleId: "com.projectmark.weather_map"
-        # firebase:
-        #   config: config/prod/firebase_app_id_file.json
+      ios: null
     staging:
       app:
         name: "Weather Map staging"
@@ -105,10 +102,7 @@ flavorizr:
         customConfig:
           versionCode: flutterVersionCode.toInteger()
           versionName: flutterVersionName
-      ios:
-        bundleId: "com.projectmark.staging.weather_map"
-        # firebase:
-        #   config: config/staging/firebase_app_id_file.json
+      ios: null
     dev:
       app:
         name: "Weather Map dev"
@@ -117,21 +111,8 @@ flavorizr:
         customConfig:
           versionCode: flutterVersionCode.toInteger()
           versionName: flutterVersionName
-      ios:
-        bundleId: "com.projectmark.dev.weather_map"
-        # firebase:
-        #   config: config/dev/firebase_app_id_file.json
-
-# flutter_gen:
-#   integrations:
-#     flutter_svg: true
-#   outputs:
-#     class_name: WeatherMapAssets
-#   assets:
-#     exclude:
-#       - .gitkeep
-#       - assets/translations/**
-
+      ios: null
+        
 flutter:
   generate: true
   uses-material-design: true

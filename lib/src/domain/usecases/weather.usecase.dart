@@ -1,7 +1,9 @@
+import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:weather_map/src/data/repository/weather_repository.dart';
 import 'package:weather_map/src/domain/models/city.model.dart';
 import 'package:weather_map/src/domain/models/weather.model.dart';
+import 'package:weather_map/src/presentation/global/state/global_manager.dart';
 
 class FetchWeatherUseCase {
   final WeatherRepository weatherRepository;
@@ -23,6 +25,7 @@ class FetchWeatherUseCase {
         final freshWeather = await weatherRepository.fetchWeatherFromServer(
           lat: city.lat,
           lon: city.long,
+          unit: Get.find<GlobalManager>().temperatureUnit.value,
         );
 
         if (freshWeather != null) {

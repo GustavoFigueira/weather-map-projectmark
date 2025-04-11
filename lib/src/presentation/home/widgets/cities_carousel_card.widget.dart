@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:weather_map/src/core/helper/measuring_units.helper.dart';
 import 'package:weather_map/src/domain/enums/weather_condition.enum.dart';
+import 'package:weather_map/src/domain/models/city.model.dart';
 
 const List<double> _kDefaultLinearGradientStops = [0.6, 1];
 
@@ -12,14 +15,35 @@ class CitiesCarouselCard extends StatelessWidget {
     required this.temperature,
     this.humidity,
     this.pressure,
-    this.condition = WeatherCondition.sunny,
   });
 
-  final String location;
+  final CityModel location;
   final double temperature;
   final double? humidity;
   final double? pressure;
-  final WeatherCondition condition;
+
+  /// The weather condition of the city for different colors schemes.
+  /// [Disclaimer]: This is a requirement from the Code Challenge itself:
+  /// Temperature color coding:
+  /// 5°C or below → [Blue]
+  /// Above 5°C and up to 25°C → [Orange]
+  /// Above 25°C → [Red]
+  /// We can assume that the color mentioned in the code challenge is the
+  /// background color for the main cards from the first section, since this
+  /// requirement is not mentioned in the Figma prototype.
+
+  WeatherCondition get condition {
+    switch (temperature) {
+      case final double n when n <= 5:
+        return WeatherCondition.cloudy;
+      case final double n when n > 5 && n <= 25:
+        return WeatherCondition.sunny;
+      case final double n when n > 25:
+        return WeatherCondition.scorching;
+      default:
+        return WeatherCondition.sunny;
+    }
+  }
 
   @override
   Widget build(BuildContext context) => Container(
@@ -44,7 +68,7 @@ class CitiesCarouselCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                location,
+                '${location.name} / ${location.state}',
                 style: TextStyle(
                   fontSize: 17,
                   fontWeight: FontWeight.bold,
@@ -56,16 +80,18 @@ class CitiesCarouselCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 8),
-              Text(
-                '$temperature°C',
-                style: TextStyle(
-                  fontSize: 42,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  fontFamily:
-                      GoogleFonts.archivo(
-                        fontWeight: FontWeight.w800,
-                      ).fontFamily,
+              Obx(
+                () => Text(
+                  temperature.formatTemperature(),
+                  style: TextStyle(
+                    fontSize: 42,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontFamily:
+                        GoogleFonts.archivo(
+                          fontWeight: FontWeight.w800,
+                        ).fontFamily,
+                  ),
                 ),
               ),
               if (humidity != null) ...[
@@ -90,7 +116,6 @@ class CitiesCarouselCard extends StatelessWidget {
     ),
   );
 
-  // Helper function to get the linear gradient background based on the weather condition
   LinearGradient _getLinearBackground(WeatherCondition condition) {
     switch (condition) {
       case WeatherCondition.scorching:
@@ -124,7 +149,6 @@ class CitiesCarouselCard extends StatelessWidget {
     }
   }
 
-  // Helper function to build the weather icon (sun or cloud)
   Widget _buildWeatherIcon(BuildContext context, WeatherCondition condition) {
     final size = MediaQuery.of(context).size.width * 0.25;
 
@@ -139,7 +163,7 @@ class CitiesCarouselCard extends StatelessWidget {
               colors: [
                 Color(0xFFF6AD55),
                 Color(0xFF74C4DE),
-                Color(0xFF74C4DE).withValues(alpha: 0),
+                Color(0xFF74C4DE).withOpacity(0),
               ],
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,

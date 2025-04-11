@@ -1,9 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' as getx hide Trans;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:weather_map/src/core/constants/theme.dart';
-import 'package:weather_map/src/presentation/global/state/global_state_manager.dart';
+import 'package:weather_map/src/presentation/global/state/global_manager.dart';
 import 'package:weather_map/src/presentation/global/widgets/menu_drawer.widget.dart';
 import 'package:weather_map/src/presentation/home/home.viewmodel.dart';
 import 'package:weather_map/src/presentation/home/widgets/cities_horizontal_carousel_slider.widget.dart';
@@ -19,9 +20,9 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<HomeViewModel>();
+    final controller = getx.Get.find<HomeViewModel>();
 
-    return Obx(
+    return getx.Obx(
       () => Stack(
         children: [
           Scaffold(
@@ -54,7 +55,7 @@ class HomeView extends StatelessWidget {
             body: SafeArea(
               child: RefreshIndicator(
                 color: AppTheme.primaryColor,
-                onRefresh: controller.fetchWeatherForCities,
+                onRefresh: controller.initializeData,
                 child: SingleChildScrollView(
                   physics: const AlwaysScrollableScrollPhysics(),
                   child: Padding(
@@ -71,7 +72,7 @@ class HomeView extends StatelessWidget {
                         ),
                         const DefaultHomeHorizontalSpacing(),
                         DefaultHomeSection(
-                          title: 'Today',
+                          title: 'today'.tr(),
                           contentPadding: false,
                           child: TemperatureAlongDayCarouselSlider(
                             loading: controller.loadingWeather.value,
@@ -80,7 +81,7 @@ class HomeView extends StatelessWidget {
                         ),
                         const DefaultHomeHorizontalSpacing(),
                         DefaultHomeSection(
-                          title: 'Next 7 Days',
+                          title: 'next_7_days'.tr(),
                           child: NextDaysWeatherTable(
                             loading: controller.loadingWeather.value,
                             nextDaysWeather: controller.nextDaysWeather,
@@ -93,7 +94,7 @@ class HomeView extends StatelessWidget {
               ),
             ),
           ),
-          if (GlobalStateManager().loading.value) ...[
+          if (GlobalManager().loading.value) ...[
             const Center(child: CircularProgressIndicator()),
           ],
         ],

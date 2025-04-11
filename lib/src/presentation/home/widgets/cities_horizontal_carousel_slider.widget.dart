@@ -58,7 +58,7 @@ class CitiesHorizontalCarouselSliderState
                   horizontal: kHomeDefaultSpacing / 2,
                 ),
                 child: CitiesCarouselCard(
-                  location: city.name,
+                  location: city,
                   temperature: 45,
                   humidity: 60,
                   pressure: 1013,
