@@ -1,14 +1,14 @@
 flutter_native_splash:
-  color: "#1B3E67"
-  color_dark: "#1B3E67"
-  image: assets/images/extra/projectmark-thumbnail.png
+  color: "#E2E8F0"
+  color_dark: "#E2E8F0"
+  image: assets/images/logos/projectmark-logo.png
   branding: assets/images/extra/projectmark-brand.png
   
   android_12:
-    color: "#1B3E67"
-    icon_background_color: "#1B3E67"
-    color_dark: "#1B3E67"
-    icon_background_color_dark: "#1B3E67"
+    color: "#E2E8F0"
+    icon_background_color: "#E2E8F0"
+    color_dark: "#E2E8F0"
+    icon_background_color_dark: "#E2E8F0"
     branding: assets/images/extra/projectmark-brand.png
 
   web: true

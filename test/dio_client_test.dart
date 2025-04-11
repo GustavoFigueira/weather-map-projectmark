@@ -26,7 +26,7 @@ void main() {
         const endpoint = '/weather';
         final queryParameters = {'q': 'London', 'units': 'metric'};
         final mockResponse = Response(
-          requestOptions: RequestOptions(path: ''),
+          requestOptions: RequestOptions(),
           data: {'weather': 'Sunny'},
           statusCode: 200,
         );
@@ -61,9 +61,7 @@ void main() {
     test('should log and rethrow DioException on failure', () async {
       const endpoint = '/weather';
       final queryParameters = {'q': 'London', 'units': 'metric'};
-      final dioException = DioException(
-        requestOptions: RequestOptions(path: ''),
-      );
+      final dioException = DioException(requestOptions: RequestOptions());
 
       when(
         mockEnvironment.baseUrl,
@@ -74,8 +72,7 @@ void main() {
       ).thenThrow(dioException);
 
       expect(
-        () async =>
-            await dioClient.get(endpoint, queryParameters: queryParameters),
+        () async => dioClient.get(endpoint, queryParameters: queryParameters),
         throwsA(isA<DioException>()),
       );
       verify(

@@ -87,7 +87,16 @@ class CitiesHorizontalCarouselSliderState
         dataEntries
             .map(
               (entry) => Padding(
-                padding: const EdgeInsets.only(left: kHomeDefaultSpacing),
+                padding: EdgeInsets.only(
+                  left:
+                      dataEntries.first.key == entry.key
+                          ? kHomeDefaultSpacing
+                          : 0,
+                  right:
+                      dataEntries.last.key == entry.key
+                          ? kHomeDefaultSpacing
+                          : 0,
+                ),
                 child: CitiesCarouselCard(
                   location: entry.key,
                   temperature: entry.value?.temperature ?? 0,

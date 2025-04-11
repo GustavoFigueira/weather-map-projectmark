@@ -62,6 +62,9 @@ class WeatherRepository {
     }
   }
 
+  /// [Disclamimer:] Due to an API key limitation, the maximum hourly forecast 
+  /// time for the free tier is 3 hours every 5 days.
+  /// [https://openweathermap.org/forecast5]
   Future<List<DayHourWeatherModel>?> fetchHourlyForecastFromServer({
     required String lat,
     required String lon,

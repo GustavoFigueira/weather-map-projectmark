@@ -18,7 +18,8 @@ abstract class MainAppEnvironment {
   Uri get baseUrl;
 
   /// The OpenWeatherMap API key.
-  /// P.S: This key should be kept secret and injected at build time.
+  /// [Disclaimer:] This key should be kept secret and injected at build time.
+  /// This is only for demonstration purposes.
   String get openWeatherMapApiKey;
 
   /// The URL to the assets files (images, etc), from a CND like AWS S3 bucket.

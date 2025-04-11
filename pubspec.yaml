@@ -1,7 +1,7 @@
 name: weather_map
 description: "Weather Map App by ProjectMark"
 publish_to: "none"
-version: 1.2.0+5
+version: 2.0.0+6
 
 environment:
   sdk: ^3.7.2
