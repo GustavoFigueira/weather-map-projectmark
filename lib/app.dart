@@ -76,6 +76,9 @@ Future<void> mainApp({required MainAppEnvironment environment}) async {
         ),
       );
 
+      // Set the current environment for the app.
+      GlobalManager().updateEnvironment(environment);
+
       // Initialize the default locale.
       initializeDateFormatting(GlobalManager().currentLocale);
 

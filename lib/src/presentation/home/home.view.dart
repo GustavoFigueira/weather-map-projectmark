@@ -88,7 +88,7 @@ class HomeView extends StatelessWidget {
                             title: 'Today',
                             contentPadding: false,
                             child: TemperatureAlongDayCarouselSlider(
-                              loading: controller.loadingWeather.value,
+                              loading: controller.loadingNextHoursWeather.value,
                               nextHoursWeather: controller.nextHoursWeather,
                             ),
                           ),
@@ -96,7 +96,7 @@ class HomeView extends StatelessWidget {
                           DefaultHomeSection(
                             title: 'Next 7 days',
                             child: NextDaysWeatherTable(
-                              loading: controller.loadingWeather.value,
+                              loading: controller.loadingNextDaysWeather.value,
                               nextDaysWeather: controller.dailyForecastData,
                             ),
                           ),

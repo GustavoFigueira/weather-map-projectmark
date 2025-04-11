@@ -34,7 +34,8 @@ class HomeViewModel extends GetxController {
   final dailyForecastData = <DailyForecastModel>[].obs;
   final nextHoursWeather = <DayHourWeatherModel>[].obs;
   final loadingCities = false.obs;
-  final loadingWeather = false.obs;
+  final loadingNextHoursWeather = false.obs;
+  final loadingNextDaysWeather = false.obs;
   final lastUpdated = Rxn<DateTime>();
 
   List<CityModel> get currentCities => cities;
@@ -73,7 +74,6 @@ class HomeViewModel extends GetxController {
 
   Future<void> refreshData() async {
     try {
-      loadingWeather.value = true;
       Future.wait([
         fetchWeatherForCities(),
         fetchForecastForCurrentCity(),
@@ -83,9 +83,7 @@ class HomeViewModel extends GetxController {
       });
     } catch (e) {
       Logger().e('Error refreshing data: $e');
-    } finally {
-      loadingWeather.value = false;
-    }
+    } finally {}
   }
 
   void _setupAutoRefresh() {
@@ -138,20 +136,20 @@ class HomeViewModel extends GetxController {
 
   Future<void> fetchWeatherForCities() async {
     try {
-      loadingWeather.value = true;
+      loadingNextHoursWeather.value = true;
       final weatherDataMap = await fetchCityWeatherUseCase(cities);
       citiesWeatherData.assignAll(weatherDataMap);
       saveLastUpdated();
     } catch (e) {
       Logger().e('Error fetching weather data: $e');
     } finally {
-      loadingWeather.value = false;
+      loadingNextHoursWeather.value = false;
     }
   }
 
   Future<void> fetchWeatherForCurrentCity() async {
     try {
-      loadingWeather.value = true;
+      loadingNextHoursWeather.value = true;
 
       // Get the current city
       final currentCity = GlobalManager().currentCity;
@@ -181,13 +179,13 @@ class HomeViewModel extends GetxController {
     } catch (e) {
       Logger().e('Error fetching weather for current city: $e');
     } finally {
-      loadingWeather.value = false;
+      loadingNextHoursWeather.value = false;
     }
   }
 
   Future<void> fetchForecastForCurrentCity() async {
     try {
-      loadingWeather.value = true;
+      loadingNextDaysWeather.value = true;
 
       final currentCity = GlobalManager().currentCity;
       if (currentCity == null) {
@@ -208,13 +206,13 @@ class HomeViewModel extends GetxController {
     } catch (e) {
       Logger().e('Error fetching forecast for current city: $e');
     } finally {
-      loadingWeather.value = false;
+      loadingNextDaysWeather.value = false;
     }
   }
 
   Future<void> fetchHourlyWeatherForCurrentCity() async {
     try {
-      loadingWeather.value = true;
+      loadingNextHoursWeather.value = true;
 
       final currentCity = GlobalManager().currentCity;
       if (currentCity == null) {
@@ -236,7 +234,7 @@ class HomeViewModel extends GetxController {
     } catch (e) {
       Logger().e('Error fetching hourly weather for current city: $e');
     } finally {
-      loadingWeather.value = false;
+      loadingNextHoursWeather.value = false;
     }
   }
 
