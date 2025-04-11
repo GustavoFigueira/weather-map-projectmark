@@ -83,7 +83,7 @@ Future<void> mainApp({required MainAppEnvironment environment}) async {
       initializeDateFormatting(GlobalManager().currentLocale);
 
       // Initialize Hive serivce.
-      initHive();
+      await initHive();
 
       // Init services of the app .
       initServices(environment);
