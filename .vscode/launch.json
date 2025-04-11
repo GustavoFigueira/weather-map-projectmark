@@ -23,7 +23,10 @@
       "name": "Run PROD",
       "program": "${workspaceRoot}\\lib\\app\\prod.dart",
       "request": "launch",
-      "type": "dart"
+      "type": "dart",
+      "args": [
+        "--release",
+      ]
     }
   ]
 }

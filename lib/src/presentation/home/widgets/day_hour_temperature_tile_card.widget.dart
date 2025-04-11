@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:weather_map/src/core/helper/measuring_units.helper.dart';
 import 'package:weather_map/src/domain/enums/weather_condition.enum.dart';
 import 'package:weather_map/src/presentation/global/widgets/weather_condition_icon.widget.dart';
 import 'package:weather_map/src/presentation/home/home.view.dart';
@@ -22,7 +24,8 @@ class DayHourTemperatureTileCard extends StatelessWidget {
   final bool hasRightPadding;
 
   @override
-  Widget build(BuildContext context) => Padding(
+  Widget build(BuildContext context) => Obx(
+    () => Padding(
       padding: EdgeInsets.only(
         left: hasLeftPadding ? kHomeDefaultSpacing : 0,
         right: hasRightPadding ? kHomeDefaultSpacing : 10,
@@ -54,10 +57,13 @@ class DayHourTemperatureTileCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 4),
-            WeatherConditionIcon(condition: condition),
+            WeatherConditionIcon(
+              condition: condition,
+              fill: _getTextColor(condition, currentTemperature: isCurrentHour),
+            ),
             const SizedBox(height: 4),
             Text(
-              '$temperature°C',
+              temperature.formatTemperature(),
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 14,
@@ -70,11 +76,11 @@ class DayHourTemperatureTileCard extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ),
+  );
 
   Color _getTextColor(
     WeatherCondition condition, {
-
     bool currentTemperature = false,
   }) {
     if (currentTemperature) {

@@ -1,7 +1,7 @@
 name: weather_map
 description: "Weather Map App by ProjectMark"
 publish_to: "none"
-version: 1.0.0+2
+version: 1.0.2+4
 
 environment:
   sdk: ^3.7.2
@@ -12,6 +12,8 @@ dependencies:
   carousel_slider: ^5.0.0
   # Logs and erros capture
   catcher_2: ^2.1.2
+  # Device preview
+  device_preview: ^1.2.0
   # Http client
   dio: ^5.8.0+1
   # Improve web platform URL routes
@@ -75,6 +77,8 @@ dev_dependencies:
   pubspec_dependency_sorter: ^1.0.5
 
 dependency_overrides:
+  # Code generation
+  freezed_annotation: ^3.0.0
   # Internationalization
   intl: ^0.20.2
   # Fix for Hive package
@@ -93,10 +97,7 @@ flavorizr:
         customConfig:
           versionCode: flutterVersionCode.toInteger()
           versionName: flutterVersionName
-      ios:
-        bundleId: "com.projectmark.weather_map"
-        # firebase:
-        #   config: config/prod/firebase_app_id_file.json
+      ios: null
     staging:
       app:
         name: "Weather Map staging"
@@ -105,10 +106,7 @@ flavorizr:
         customConfig:
           versionCode: flutterVersionCode.toInteger()
           versionName: flutterVersionName
-      ios:
-        bundleId: "com.projectmark.staging.weather_map"
-        # firebase:
-        #   config: config/staging/firebase_app_id_file.json
+      ios: null
     dev:
       app:
         name: "Weather Map dev"
@@ -117,21 +115,8 @@ flavorizr:
         customConfig:
           versionCode: flutterVersionCode.toInteger()
           versionName: flutterVersionName
-      ios:
-        bundleId: "com.projectmark.dev.weather_map"
-        # firebase:
-        #   config: config/dev/firebase_app_id_file.json
-
-# flutter_gen:
-#   integrations:
-#     flutter_svg: true
-#   outputs:
-#     class_name: WeatherMapAssets
-#   assets:
-#     exclude:
-#       - .gitkeep
-#       - assets/translations/**
-
+      ios: null
+        
 flutter:
   generate: true
   uses-material-design: true
@@ -139,7 +124,6 @@ flutter:
   assets:
     - assets/
     - assets/images/
-    - assets/images/extra/
     - assets/images/icons/
     - assets/images/illustrations/
     - assets/images/logos/

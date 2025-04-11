@@ -28,10 +28,10 @@ Future<void> initFirebase(MainAppEnvironment environment) async {
       FirebaseRemoteConfig.instance.onConfigUpdated.listen(
         (event) async => FirebaseRemoteConfig.instance.activate(),
       );
-    }
 
-    // Request permission for push notifications
-    FirebaseMessaging.instance.requestPermission();
+      // Request permission for push notifications
+      FirebaseMessaging.instance.requestPermission();
+    }
 
     Logger().d('Firebase initialized');
   } catch (e, s) {

@@ -1,7 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:weather_map/src/core/constants/locale.constants.dart';
+import 'package:weather_map/src/domain/enums/temperature_units.enum.dart';
+import 'package:weather_map/src/presentation/global/state/global_manager.dart';
+import 'package:weather_map/src/presentation/home/home.viewmodel.dart';
 
 class MenuDrawer extends StatefulWidget {
   const MenuDrawer({super.key});
@@ -11,7 +15,11 @@ class MenuDrawer extends StatefulWidget {
 }
 
 class _MenuDrawerState extends State<MenuDrawer> {
-  bool isCelsius = true;
+  String _getFormattedLastUpdatedDateTime() {
+    final lastUpdated =
+        Get.find<HomeViewModel>().lastUpdated.value ?? DateTime.now();
+    return 'Last updated: ${DateFormat.yMd(context.locale.languageCode).add_Hm().format(lastUpdated)}';
+  }
 
   @override
   Widget build(BuildContext context) => Drawer(
@@ -42,7 +50,7 @@ class _MenuDrawerState extends State<MenuDrawer> {
         ),
         ListTile(
           title: Text(
-            'Last Update: ${DateTime.now().toLocal().toString().split('.')[0]}',
+            _getFormattedLastUpdatedDateTime(),
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
           ),
           leading: const Icon(Icons.update, color: Colors.blue),
@@ -54,16 +62,40 @@ class _MenuDrawerState extends State<MenuDrawer> {
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
           ),
           subtitle: Text(
-            isCelsius ? 'Celsius (°C)' : 'Fahrenheit (°F)',
+            GlobalManager().temperatureUnit.value == TemperatureUnits.celsius
+                ? 'Celsius (°C)'
+                : 'Fahrenheit (°F)',
             style: const TextStyle(fontSize: 14),
           ),
-          value: isCelsius,
+          value:
+              GlobalManager().temperatureUnit.value == TemperatureUnits.celsius,
           onChanged: (value) {
             setState(() {
-              isCelsius = value;
+              Get.find<GlobalManager>().updateTemperatureUnit(
+                value ? TemperatureUnits.celsius : TemperatureUnits.fahrenheit,
+              );
+              Get.find<HomeViewModel>().initializeData();
             });
           },
           secondary: const Icon(Icons.thermostat, color: Colors.red),
+        ),
+        const Divider(),
+        SwitchListTile(
+          title: const Text(
+            'Fake Data',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+          ),
+          subtitle: Text(
+            GlobalManager().fakeData.value ? 'Enabled' : 'Disabled',
+            style: const TextStyle(fontSize: 14),
+          ),
+          value: GlobalManager().fakeData.value,
+          onChanged: (option) {
+            setState(() {
+              Get.find<GlobalManager>().updateFakeData(value: option);
+            });
+          },
+          secondary: const Icon(Icons.data_usage, color: Colors.blue),
         ),
         const Divider(),
         ListTile(
@@ -72,21 +104,35 @@ class _MenuDrawerState extends State<MenuDrawer> {
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
           ),
           trailing: DropdownButton<Locale>(
-            value: EasyLocalization.of(context)?.locale ?? kDefaultLocale,
+            value: Locale(
+              Get.find<GlobalManager>().currentLocale ??
+                  kDefaultLocale.languageCode,
+            ),
             items:
-                kSupportedLocales
-                    .map(
-                      (locale) => DropdownMenuItem(
-                        value: locale,
-                        child: Text(
-                          locale.languageCode == 'en'
-                              ? 'English'
-                              : 'Portuguese',
-                        ),
-                      ),
-                    )
-                    .toList(),
+                kSupportedLocales.map((locale) {
+                  String languageName;
+                  switch (locale.languageCode) {
+                    case 'en':
+                      languageName = 'English';
+                      break;
+                    case 'pt':
+                      languageName = 'Portuguese';
+                      break;
+                    case 'es':
+                      languageName = 'Spanish';
+                      break;
+                    default:
+                      languageName = 'English';
+                  }
+                  return DropdownMenuItem(
+                    value: locale,
+                    child: Text(languageName),
+                  );
+                }).toList(),
             onChanged: (Locale? value) {
+              Get.find<GlobalManager>().updateCurrentLocale(
+                value?.languageCode,
+              );
               if (value != null) {
                 context.setLocale(value);
               }

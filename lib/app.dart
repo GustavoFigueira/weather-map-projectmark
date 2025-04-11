@@ -18,14 +18,20 @@ import 'package:weather_map/src/core/routing/routes.dart';
 import 'package:weather_map/src/core/services/hive/hive.init.dart';
 import 'package:weather_map/src/core/services/navigation/navigation_service.dart';
 import 'package:weather_map/src/core/services/services.dart';
+import 'package:weather_map/src/presentation/global/state/global_manager.dart';
 
 const defaultTranslationsPath = 'assets/translations';
 
-void _runApp({required MainAppEnvironment environment}) => runApp(
-  EasyLocalization(
+class MainApp extends StatelessWidget {
+  const MainApp({super.key});
+
+  @override
+  Widget build(BuildContext context) => EasyLocalization(
     path: defaultTranslationsPath,
     supportedLocales: kSupportedLocales,
     fallbackLocale: kDefaultLocale,
+    startLocale: kDefaultLocale,
+    useOnlyLangCode: true,
     child: GetMaterialApp.router(
       title: 'Mobile Challenge (ProjectMark)',
       debugShowCheckedModeBanner: false,
@@ -38,9 +44,14 @@ void _runApp({required MainAppEnvironment environment}) => runApp(
       routeInformationParser: router.routeInformationParser,
       routerDelegate: router.routerDelegate,
       routeInformationProvider: router.routeInformationProvider,
+      // localizationsDelegates: context.localizationDelegates,
+      // supportedLocales: context.supportedLocales,
+      // locale: context.locale,
     ),
-  ),
-);
+  );
+}
+
+void _runApp({required MainAppEnvironment environment}) => runApp(MainApp());
 
 Future<void> mainApp({required MainAppEnvironment environment}) async {
   runZonedGuarded(
@@ -60,7 +71,7 @@ Future<void> mainApp({required MainAppEnvironment environment}) async {
       );
 
       // Initialize the default locale.
-      initializeDateFormatting();
+      initializeDateFormatting(GlobalManager().currentLocale);
 
       // Initialize Hive serivce.
       initHive();
