@@ -23,7 +23,7 @@ class DevAppEnvironment implements MainAppEnvironment {
       Uri.parse('https://api.openweathermap.org/data/2.5');
 
   @override
-  String get openWeatherMapApiKey => 'ed825be7b608515bc2a65d9b3f4b8299';
+  String get openWeatherMapApiKey => 'API_KEY';
 
   @override
   String get assetsUrl => '';
